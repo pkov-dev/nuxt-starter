@@ -1,0 +1,170 @@
+@use 'settings';
+@use 'sass:math';
+@use 'functions' as *;
+
+/**
+ * @param {string} $sym - Currency symbol.
+ */
+@mixin currency($sym) {
+  &::after {
+    content: '#{$sym}';
+  }
+}
+
+/**
+ * @param {string} $direction - left | right | top | bottom.
+ * @param {color} $color - Triangle color.
+ * @param {number} $size - Main border size.
+ * @param {number} $size2 - Side border size.
+ */
+// Triangle
+@mixin triangle($direction, $color, $size, $size2: $size) {
+  @if $direction ==left {
+    border: #{$size2}px solid transparent;
+    border-right: #{$size}px solid $color;
+  }
+
+  @if $direction ==right {
+    border: #{$size2}px solid transparent;
+    border-left: #{$size}px solid $color;
+  }
+
+  @if $direction ==top {
+    border: #{$size2}px solid transparent;
+    border-bottom: #{$size}px solid $color;
+  }
+
+  @if $direction ==bottom {
+    border: #{$size2}px solid transparent;
+    border-top: #{$size}px solid $color;
+  }
+}
+
+/**
+ * @see https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+ *
+ * @param {string} $property - CSS property name.
+ * @param {number} $startSize - Value at the upper breakpoint.
+ * @param {number} $minSize - Value at the lower breakpoint.
+ * @param {number} $keepSize - Controls which fallback media queries are generated.
+ * @param {number} $widthFrom - Upper fluid breakpoint.
+ * @param {number} $widthTo - Lower fluid breakpoint.
+ *
+ * keepSize:
+ * 0 - Generates all media queries. Nothing else is required.
+ *
+ * 1 - Generates only the fluid range.
+ *     Define both outer media queries manually if needed.
+ *
+ * 2 - Keeps only the upper fixed value.
+ *     Define the lower media query manually if needed.
+ *
+ * 3 - Keeps only the lower fixed value.
+ *     Define the upper media query manually if needed.
+ */
+@mixin adaptiveValue($property,
+  $startSize,
+  $minSize: settings.$minSize,
+  $keepSize: 0,
+  $widthFrom: settings.$containerWidth,
+  $widthTo: settings.$minWidth) {
+  @if ($startSize==0) {
+    $startSize: 0.000001;
+  }
+
+  @if ($minSize==0) {
+    $minSize: 0.000001;
+  }
+
+  @if ($widthFrom ==settings.$containerWidth and settings.$maxWidthContainer ==0) {
+    $widthFrom: settings.$maxWidth;
+  }
+
+  $widthFromMedia: toEm($widthFrom);
+  $widthToMedia: toEm($widthTo);
+
+  $slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
+  $yIntersection: -$widthTo * $slope + $minSize;
+
+  @if ($yIntersection==0) {
+    $yIntersection: 0.000001;
+  }
+
+  $flyValue: #{$yIntersection}px ' + '#{$slope * 100}vw;
+
+  $propertyValue: #{'clamp(' #{$minSize}px ','$flyValue ','#{$startSize}px ')'
+}
+
+;
+
+@if ($minSize > $startSize) {
+  $propertyValue: #{'clamp(' #{$startSize}px ','$flyValue ','#{$minSize}px ')'
+}
+
+;
+}
+
+@if $keepSize !=1 and $keepSize !=3 {
+  @media (width >=$widthFromMedia) {
+    #{$property}: #{$startSize}px;
+  }
+}
+
+@media (width >=$widthToMedia) and (width < $widthFromMedia) {
+  #{$property}: $propertyValue;
+}
+
+@if $keepSize !=1 and $keepSize !=2 {
+  @media (width < $widthToMedia) {
+    #{$property}: #{$minSize}px;
+  }
+}
+}
+
+/**
+ * @param {number} $type - Content placement preset (0-6).
+ * @param {length} $container - Maximum container width.
+ * @param {length} $paddingStart - Left container padding.
+ * @param {length} $paddingEnd - Right container padding.
+ */
+// Grid-контейнер
+@mixin gridContainer($type: 0,
+  $container: settings.$maxWidthContainer,
+  $paddingStart: math.div(settings.$containerPadding, 2),
+  $paddingEnd: math.div(settings.$containerPadding, 2)) {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: #{$paddingStart}px 1fr minmax(auto, #{$container}px) 1fr #{$paddingEnd}px;
+
+  >* {
+    min-width: 0;
+
+    @if $type==1 {
+      grid-column: 1 / 6;
+    }
+
+    @else if $type==2 {
+      grid-column: 2 / 5;
+    }
+
+    @else if $type==3 {
+      grid-column: 3 / 6;
+    }
+
+    @else if $type==4 {
+      grid-column: 1 / 4;
+    }
+
+    @else if $type==5 {
+      grid-column: 2 / 4;
+    }
+
+    @else if $type==6 {
+      grid-column: 3 / 5;
+    }
+
+    @else {
+      grid-column: 3 / 4;
+    }
+  }
+}
