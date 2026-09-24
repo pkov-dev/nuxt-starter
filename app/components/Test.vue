@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <article class="card">
+  <article class="card t:mt-4 t:flex t:bg-red-400 t:p-2 t:text-2xl">
     <h2 class="card__title">
       Title
     </h2>
@@ -25,7 +25,6 @@
   padding: 24px;
   border: 1px solid #ddd;
   border-radius: 16px;
-  background: #fff;
   box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
   transition: transform 0.3s ease;
 
