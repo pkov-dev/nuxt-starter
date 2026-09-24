@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   modules: ['@vueuse/nuxt'],
-  css: ['~/assets/styles/main.scss', '~/assets/styles/tailwind.css'],
+  css: ['~/assets/styles/tailwind.css', '~/assets/styles/main.scss'],
   vite: {
     css: {
       preprocessorOptions: {
@@ -17,6 +17,5 @@ export default defineNuxtConfig({
     },
     plugins: [tailwindcss()],
   },
-
   devtools: { enabled: true },
 })
