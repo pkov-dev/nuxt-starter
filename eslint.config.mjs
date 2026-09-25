@@ -23,6 +23,8 @@ export default antfu({
   ],
 
   rules: {
+    'pnpm/yaml-enforce-settings': 'off',
+
     'better-tailwindcss/enforce-consistent-class-order': 'warn',
     'better-tailwindcss/no-unnecessary-whitespace': 'warn',
     'better-tailwindcss/no-conflicting-classes': 'error',
