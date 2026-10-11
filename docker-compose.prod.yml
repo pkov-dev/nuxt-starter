@@ -1,0 +1,45 @@
+# docker compose -f docker-compose.prod.yml down
+# docker compose -f docker-compose.prod.yml down -v
+
+# docker compose -f docker-compose.prod.yml up --build
+# docker compose -f docker-compose.prod.yml up
+
+services:
+
+  nuxt:
+    build:
+      context: .
+      target: prod
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      NITRO_HOST: 0.0.0.0
+      NITRO_PORT: 3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+
+  postgres:
+    image: postgres:18
+    container_name: postgres-db
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+volumes:
+  postgres_data:
