@@ -1,0 +1,6 @@
+services:
+  nuxt-check:
+    build:
+      context: .
+      target: dev
+    command: pnpm check
