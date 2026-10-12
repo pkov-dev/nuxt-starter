@@ -1,0 +1,14 @@
+.DS_Store
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+README.md
+Dockerfile
+.dockerignore
+docker-compose*.yml
+.nuxt
+.output
+node_modules
+.pnpm-store

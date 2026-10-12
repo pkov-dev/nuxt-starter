@@ -1,0 +1,5 @@
+services:
+  nuxt-check:
+    build:
+      context: .
+      target: dev
