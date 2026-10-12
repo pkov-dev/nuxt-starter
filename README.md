@@ -1,75 +1,97 @@
-# Nuxt Minimal Starter
+# Nuxt Starter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Nuxt 4 + Vue 3 + TypeScript starter.
 
-## Setup
+## Stack
 
-Make sure to install dependencies:
+- Nuxt 4
+- Vue 3
+- TypeScript
+- pnpm
+- Node.js 24
+- PostgreSQL 18
+- Docker Compose
+- ESLint
+- Husky
+
+---
+
+## Installation
+
+Requirements:
+
+- Node.js `>=24 <25`
+- pnpm `11.20.0`
+- Docker
+
+Install:
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+Create environment:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+cp .env.example .env
 ```
+
+---
+
+## Development
+
+Start:
+
+```bash
+pnpm dev
+```
+
+Runs Nuxt dev server with Docker services.
+
+---
 
 ## Production
 
-Build the application for production:
+Build and start:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+docker compose -f compose.prod.yml up --build -d
 ```
 
-Locally preview production build:
+Start existing build:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+docker compose -f compose.prod.yml up -d
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Stop:
+
+```bash
+docker compose -f compose.prod.yml down
+```
+
+Remove volumes:
+
+```bash
+docker compose -f compose.prod.yml down -v
+```
+
+---
+
+## Commands
+
+```bash
+pnpm build        # production build
+pnpm preview      # preview production build
+pnpm typecheck    # TypeScript check
+pnpm lint         # ESLint
+pnpm check        # lint + typecheck
+```
+
+---
+
+## Environment
+
+Environment variables are validated with Zod.
+
+Required variables must exist in `.env` before running the application.

@@ -1,1 +1,20 @@
-pnpm typecheck
+# https://typicode.github.io/husky/#/?id=yarn-on-windows
+. "$(dirname "$0")/common.sh"
+
+# Define reusable error message
+ERROR_MESSAGE="$(tput setaf 1)\nChecks failed. Please fix the errors and try again.\n$(tput sgr0)"
+
+# Run checks
+run_check() {
+  local command="$1"
+
+  eval "$command" || (echo "$ERROR_MESSAGE" && exit 1)
+}
+
+# Use Docker only when explicitly requested
+# CHECK_IN_DOCKER=true git push
+if [ "${CHECK_IN_DOCKER}" = "true" ]; then
+  run_check "docker compose -f compose.check.yml run --rm --build nuxt-check"
+else
+  run_check "pnpm check"
+fi

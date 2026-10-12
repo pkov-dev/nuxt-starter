@@ -1,4 +1,5 @@
 import tailwindcss from '@tailwindcss/vite'
+import './server/config/env'
 
 import './server/config/env'
 
@@ -19,5 +20,7 @@ export default defineNuxtConfig({
     },
     plugins: [tailwindcss()],
   },
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+  },
 })
