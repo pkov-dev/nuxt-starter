@@ -3,4 +3,3 @@ services:
     build:
       context: .
       target: dev
-    command: pnpm check

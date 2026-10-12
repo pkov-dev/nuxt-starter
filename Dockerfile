@@ -6,6 +6,14 @@ RUN mkdir -p /app && chown node:node /app
 ENV NITRO_HOST=0.0.0.0
 
 
+FROM base AS dev
+USER node
+COPY --chown=node:node package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile
+COPY --chown=node:node . .
+CMD ["pnpm", "check"]
+
+
 FROM base AS build
 USER node
 COPY --chown=node:node package.json pnpm-lock.yaml pnpm-workspace.yaml ./
