@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+
 </script>
 
 <template>
@@ -26,6 +27,7 @@
   border-radius: 16px;
   box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
   transition: transform 0.3s ease;
+  padding: 3px;
 
   &:hover {
     transform: translateY(-4px);
