@@ -1,7 +1,5 @@
 import tailwindcss from '@tailwindcss/vite'
-import './server/config/env'
-
-import './server/config/env'
+import './config/env'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
