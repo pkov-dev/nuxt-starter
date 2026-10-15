@@ -15,6 +15,9 @@ CMD ["pnpm", "check"]
 
 
 FROM base AS build
+# Build stage does not have runtime environment variables
+# APP_BUILD disables strict env validation during compilation
+ENV APP_BUILD=true
 USER node
 COPY --chown=node:node package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
@@ -23,6 +26,7 @@ RUN pnpm build
 
 
 FROM base AS prod
+ENV NODE_ENV=production
 COPY --from=build /app/.output ./.output
 USER node
 EXPOSE 3000
