@@ -14,6 +14,7 @@
 
     <button class="card__button">
       Learn more
+      <Icon name="app:form-success-circle" />
     </button>
   </article>
 </template>
@@ -21,7 +22,6 @@
 <style lang="scss" scoped>
 .card {
   width: 100%;
-  max-width: 360px;
   padding: 24px;
   border: 1px solid #ddd;
   border-radius: 16px;
