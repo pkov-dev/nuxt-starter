@@ -34,26 +34,25 @@
 
 <style lang="scss" scoped>
 .card {
-  width: 100%;
-  padding: 24px;
-  border: 1px solid #ddd;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
-  transition: transform 0.3s ease;
-  max-width: 80vw;
-  margin-inline: auto;
-  margin-top: 100px;
-  padding: 20px;
   display: flex;
+  width: 100%;
+  max-width: 80vw;
   align-items: flex-start;
   justify-content: space-between;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  margin-top: 100px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
   gap: 20px;
+  margin-inline: auto;
+  transition: transform 0.3s ease;
 
   &:hover {
     transform: translateY(-4px);
   }
 
-  @media (width < toEm($md)) {
+  @media (width < to-em($md)) {
     flex-direction: column;
   }
 
@@ -65,11 +64,11 @@
     margin-bottom: 12px;
     font-weight: 700;
 
-    @include adaptiveValue('font-size', 56, 16, 1, $lg, $xs);
+    @include adaptive-value('font-size', 56, 16, 1, $lg, $xs);
 
-    @media (width < toEm($sm)) {
-      color: red;
-    }
+    // @media (width < to-em($sm)) {
+    //   color: red;
+    // }
   }
 
   &__description {
