@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@nuxt/icon": "^2.5.1",
+    "@nuxt/image": "^2.1.0",
     "@vueuse/core": "^15.0.0",
     "@vueuse/nuxt": "^15.0.0",
     "drizzle-orm": "^0.45.4",
@@ -43,6 +44,7 @@
     "eslint-plugin-format": "^2.0.1",
     "husky": "^9.1.7",
     "lint-staged": "^17.5.1",
+    "postcss-pxtorem": "^6.1.0",
     "sass": "^1.104.1",
     "tailwindcss": "^4.3.3",
     "vue-tsc": "^3.3.11"

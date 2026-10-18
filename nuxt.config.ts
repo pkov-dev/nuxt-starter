@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/icon',
     '@vueuse/nuxt',
+    '@nuxt/image',
   ],
   css: ['~/assets/styles/tailwind.css', '~/assets/styles/main.scss'],
   vite: {
@@ -24,6 +25,15 @@ export default defineNuxtConfig({
       },
     },
     plugins: [tailwindcss()],
+  },
+  postcss: {
+    plugins: {
+      'postcss-pxtorem': {
+        rootValue: 16,
+        propList: ['*'],
+        mediaQuery: true,
+      },
+    },
   },
   icon: {
     fallbackToApi: false,
@@ -39,6 +49,17 @@ export default defineNuxtConfig({
       // Enable for SPA / static deployment without Nuxt server
       // includeCustomCollections: true,
       // scan: true,
+    },
+  },
+
+  image: {
+    quality: 80,
+    screens: {
+      xs: 480,
+      sm: 768,
+      md: 1024,
+      lg: 1440,
+      xl: 1920,
     },
   },
   devtools: {

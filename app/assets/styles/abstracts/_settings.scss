@@ -7,8 +7,8 @@ $containerPadding: 30;
 $containerWidth: $maxWidthContainer + $containerPadding;
 
 // Breakpoints
-$mobileSmall: 480;
-$mobile: 768;
-$tablet: 1024;
-$desktop: $containerWidth;
-$hd: 1920;
+$xs: 480;
+$sm: 768;
+$md: 1024;
+$lg: $containerWidth;
+$xl: 1920;

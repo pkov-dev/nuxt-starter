@@ -94,5 +94,8 @@
 
   "iconify.customCollectionJsonPaths": [
     "./app/assets/images/icons/collection.json"
-  ]
+  ],
+  "path-intellisense.mappings": {
+    "/": "${workspaceFolder}/public"
+  }
 }
