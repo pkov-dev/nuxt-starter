@@ -62,13 +62,14 @@
 
   &__title {
     margin-bottom: 12px;
+    font-family: var(--font-heading);
     font-weight: 700;
 
     @include adaptive-value('font-size', 56, 16, 1, $lg, $xs);
 
-    // @media (width < to-em($sm)) {
-    //   color: red;
-    // }
+    @media (width < to-em($sm)) {
+      color: red;
+    }
   }
 
   &__description {

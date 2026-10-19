@@ -7,12 +7,53 @@ const { resolve } = createResolver(import.meta.url)
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  compatibilityDate: '2026-10-19',
   modules: [
     '@nuxt/icon',
     '@vueuse/nuxt',
     '@nuxt/image',
+    '@nuxt/fonts',
   ],
+  fonts: {
+    families: [
+      {
+        name: 'Outfit',
+        provider: 'google',
+        weights: [400, 500, 700],
+      },
+      {
+        name: 'Lora',
+        provider: 'local',
+        weights: [400, 700],
+      },
+    ],
+  },
+  image: {
+    quality: 80,
+    screens: {
+      xs: 480,
+      sm: 768,
+      md: 1024,
+      lg: 1440,
+      xl: 1920,
+    },
+  },
+  icon: {
+    fallbackToApi: false,
+
+    customCollections: [
+      {
+        prefix: 'app',
+        normalizeIconName: false,
+        dir: resolve('./app/assets/images/icons'),
+      },
+    ],
+    clientBundle: {
+      // Enable for SPA / static deployment without Nuxt server
+      // includeCustomCollections: true,
+      // scan: true,
+    },
+  },
   css: ['~/assets/styles/tailwind.css', '~/assets/styles/main.scss'],
   vite: {
     css: {
@@ -35,33 +76,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  icon: {
-    fallbackToApi: false,
 
-    customCollections: [
-      {
-        prefix: 'app',
-        normalizeIconName: false,
-        dir: resolve('./app/assets/images/icons'),
-      },
-    ],
-    clientBundle: {
-      // Enable for SPA / static deployment without Nuxt server
-      // includeCustomCollections: true,
-      // scan: true,
-    },
-  },
-
-  image: {
-    quality: 80,
-    screens: {
-      xs: 480,
-      sm: 768,
-      md: 1024,
-      lg: 1440,
-      xl: 1920,
-    },
-  },
   devtools: {
     enabled: true,
   },
