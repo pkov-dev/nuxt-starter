@@ -12,14 +12,12 @@
     "dev:services": "docker compose up",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
-
     "typecheck": "nuxi typecheck",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "stylelint": "stylelint \"**/*.{css,scss,vue}\"",
     "stylelint:fix": "stylelint \"**/*.{css,scss,vue}\" --fix",
     "check": "pnpm lint && pnpm stylelint && pnpm typecheck",
-
     "postinstall": "nuxi prepare && husky",
     "icons:generate": "tsx tools/generate-icon-collection.ts"
   },
@@ -27,12 +25,14 @@
     "@nuxt/fonts": "^1.0.1",
     "@nuxt/icon": "^2.5.1",
     "@nuxt/image": "^2.1.0",
+    "@pinia/nuxt": "^1.0.3",
     "@vueuse/core": "^15.0.0",
     "@vueuse/nuxt": "^15.0.0",
     "drizzle-orm": "^0.45.4",
     "drizzle-zod": "^0.8.3",
     "nuxt": "^4.6.1",
     "pg": "^8.23.1",
+    "pinia": "^4.1.0",
     "vue": "^3.5.42",
     "vue-router": "^5.3.1",
     "zod": "3.25.76"

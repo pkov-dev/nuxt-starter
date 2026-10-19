@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-
+const uiStore = useUIStore()
 </script>
 
 <template>
@@ -7,6 +7,7 @@
     <div class="card__content">
       <h2 class="card__title">
         Title
+        {{ uiStore.test }}
       </h2>
 
       <p class="card__description">

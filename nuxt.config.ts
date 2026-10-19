@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxt/image',
     '@nuxt/fonts',
+    '@pinia/nuxt',
   ],
   fonts: {
     families: [
