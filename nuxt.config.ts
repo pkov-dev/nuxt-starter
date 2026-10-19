@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/fonts',
     '@pinia/nuxt',
+    '@nuxt/scripts',
   ],
   fonts: {
     families: [
