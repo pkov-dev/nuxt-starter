@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/scripts',
     'nuxt-security',
+    '@nuxtjs/html-validator',
   ],
   fonts: {
     families: [
