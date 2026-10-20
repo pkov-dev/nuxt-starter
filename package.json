@@ -33,6 +33,7 @@
     "drizzle-orm": "^0.45.4",
     "drizzle-zod": "^0.8.3",
     "nuxt": "^4.6.1",
+    "nuxt-security": "2.6.0",
     "pg": "^8.23.1",
     "pinia": "^4.1.0",
     "unhead": "^3.4.3",

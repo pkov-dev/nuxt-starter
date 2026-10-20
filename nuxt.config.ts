@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@pinia/nuxt',
     '@nuxt/scripts',
+    'nuxt-security',
   ],
   fonts: {
     families: [
@@ -54,6 +55,13 @@ export default defineNuxtConfig({
       // Enable for SPA / static deployment without Nuxt server
       // includeCustomCollections: true,
       // scan: true,
+    },
+  },
+  security: {
+    csrf: true,
+    requestSizeLimiter: {
+      maxRequestSizeInBytes: 5_000_000,
+      maxUploadFileRequestInBytes: 20_000_000,
     },
   },
   css: ['~/assets/styles/tailwind.css', '~/assets/styles/main.scss'],
