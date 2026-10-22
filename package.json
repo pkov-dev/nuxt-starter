@@ -23,10 +23,10 @@
   },
   "dependencies": {
     "@nuxt/fonts": "^1.0.1",
+    "@nuxt/hints": "1.1.5",
     "@nuxt/icon": "^2.5.1",
     "@nuxt/image": "^2.1.0",
     "@nuxt/scripts": "2.0.0-beta.16",
-    "@nuxtjs/html-validator": "2.1.0",
     "@pinia/nuxt": "^1.0.3",
     "@unhead/vue": "^3.4.3",
     "@vueuse/core": "^15.0.0",
