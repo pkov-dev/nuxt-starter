@@ -22,6 +22,7 @@
     "icons:generate": "tsx tools/generate-icon-collection.ts"
   },
   "dependencies": {
+    "@nuxt/a11y": "1.0.0-alpha.1",
     "@nuxt/fonts": "^1.0.1",
     "@nuxt/hints": "1.1.5",
     "@nuxt/icon": "^2.5.1",

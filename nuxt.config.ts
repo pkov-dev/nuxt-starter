@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     'nuxt-security',
     '@nuxt/hints',
+    '@nuxt/a11y',
   ],
   fonts: {
     families: [
