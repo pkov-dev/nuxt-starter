@@ -22,9 +22,7 @@
     "icons:generate": "tsx tools/generate-icon-collection.ts"
   },
   "dependencies": {
-    "@nuxt/a11y": "1.0.0-alpha.1",
     "@nuxt/fonts": "^1.0.1",
-    "@nuxt/hints": "1.1.5",
     "@nuxt/icon": "^2.5.1",
     "@nuxt/image": "^2.1.0",
     "@nuxt/scripts": "2.0.0-beta.16",
@@ -46,6 +44,8 @@
   "devDependencies": {
     "@antfu/eslint-config": "^9.5.1",
     "@iconify/tools": "^5.0.14",
+    "@nuxt/a11y": "1.0.0-alpha.1",
+    "@nuxt/hints": "1.1.5",
     "@tailwindcss/vite": "^4.3.3",
     "@types/pg": "^8.23.1",
     "concurrently": "^10.0.6",
