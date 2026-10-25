@@ -19,6 +19,14 @@ export default defineNuxtConfig({
     '@nuxt/hints',
     '@nuxt/a11y',
   ],
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en',
+      },
+      title: 'Home',
+    },
+  },
   fonts: {
     families: [
       {
@@ -60,6 +68,12 @@ export default defineNuxtConfig({
     },
   },
   security: {
+    headers: {
+      contentSecurityPolicy: {
+        // Nuxt Image CSP issue: https://github.com/nuxt/image/issues/1011
+        'script-src-attr': ['\'unsafe-inline\''],
+      },
+    },
     csrf: true,
     requestSizeLimiter: {
       maxRequestSizeInBytes: 5_000_000,
