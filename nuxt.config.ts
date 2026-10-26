@@ -1,7 +1,7 @@
 import tailwindcss from '@tailwindcss/vite'
 import { createResolver } from 'nuxt/kit'
 
-import './config/env'
+import env from './config/env'
 
 const { resolve } = createResolver(import.meta.url)
 
@@ -70,6 +70,8 @@ export default defineNuxtConfig({
   security: {
     headers: {
       contentSecurityPolicy: {
+        // Disabled in dev: prevents Safari localhost HTTPS upgrade without SSL certificate
+        'upgrade-insecure-requests': env.NODE_ENV === 'production',
         // Nuxt Image CSP issue: https://github.com/nuxt/image/issues/1011
         'script-src-attr': ['\'unsafe-inline\''],
       },
@@ -102,7 +104,33 @@ export default defineNuxtConfig({
       },
     },
   },
-
+  a11y: {
+    logIssues: false,
+  },
+  hints: {
+    features: {
+      hydration: {
+        logs: false,
+        devtools: true,
+      },
+      lazyLoad: {
+        logs: false,
+        devtools: true,
+      },
+      webVitals: {
+        logs: false,
+        devtools: true,
+      },
+      thirdPartyScripts: {
+        logs: false,
+        devtools: true,
+      },
+      htmlValidate: {
+        logs: false,
+        devtools: true,
+      },
+    },
+  },
   devtools: {
     enabled: true,
   },

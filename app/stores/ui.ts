@@ -1,9 +1,13 @@
 export const useUIStore = defineStore('ui', () => {
-  const isMenuOpen = ref(false)
-  const test = ref('test')
+  const isHeaderMenuOpen = ref(false)
+
+  const toggleHeaderMenu = () => isHeaderMenuOpen.value = !isHeaderMenuOpen.value
+  const closeHeaderMenu = () => isHeaderMenuOpen.value = false
 
   return {
-    isMenuOpen,
-    test,
+    isHeaderMenuOpen,
+
+    toggleHeaderMenu,
+    closeHeaderMenu,
   }
 })

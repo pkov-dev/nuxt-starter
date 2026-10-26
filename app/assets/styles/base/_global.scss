@@ -2,8 +2,17 @@
 @use 'variables';
 @use '../abstracts/index' as *;
 
+html {
+  overscroll-behavior: none;
+  scrollbar-gutter: stable;
+}
+
+body,
+html {
+  height: 100%;
+}
+
 body {
-  min-width: #{$min-width}px;
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-family);
