@@ -4,13 +4,9 @@ interface ScrollLockOptions {
 }
 
 /**
- * Prevents scrolling on the target element.
+ * Locks scrolling on a target element.
  *
- * @param options Configuration options.
- * @param options.target Element to lock. Defaults to `document.body`.
- * @param options.disableTouch Disables touch scrolling. Defaults to `true`.
- *
- * @returns Scroll lock state and control methods.
+ * Defaults to document.body.
  */
 export function useScrollLock(
   options: ScrollLockOptions = {},

@@ -1,3 +1,7 @@
+<script lang="ts">
+
+</script>
+
 <template>
   <article class="card">
     <div class="card__content">
