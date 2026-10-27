@@ -10,7 +10,20 @@ export default {
   rules: {
     'no-descending-specificity': null,
     'at-rule-no-unknown': null,
-    'scss/at-rule-no-unknown': true,
+    'scss/at-rule-no-unknown': [
+      true,
+      {
+        // Tailwind CSS v4 custom at-rules
+        // https://tailwindcss.com/docs/functions-and-directives
+        ignoreAtRules: [
+          'theme',
+          'utility',
+          'custom-variant',
+          'variant',
+          'source',
+        ],
+      },
+    ],
     // sass context: @use + @import
     // https://github.com/stylelint/stylelint/issues/5133
     'no-invalid-position-at-import-rule': null,
