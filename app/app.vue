@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div>
-    <Test />
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>

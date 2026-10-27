@@ -5,6 +5,7 @@
   // Auto fix
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always",
+    "source.fixAll.stylelint": "always",
     "source.organizeImports": "never"
   },
   "files.associations": {
@@ -88,7 +89,20 @@
     "pcss",
     "postcss"
   ],
+  // Enable stylelint for all supported languages
+  "stylelint.validate": [
+    "css",
+    "scss",
+    "vue"
+  ],
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
-  "editor.detectIndentation": false
+  "editor.detectIndentation": false,
+
+  "iconify.customCollectionJsonPaths": [
+    "./app/assets/images/icons/collection.json"
+  ],
+  "path-intellisense.mappings": {
+    "/": "${workspaceFolder}/public"
+  }
 }

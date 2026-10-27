@@ -1,45 +1,69 @@
-<script lang="ts" setup>
+<script lang="ts">
 
 </script>
 
 <template>
-  <article class="card t:mt-4 t:flex t:bg-red-400 t:p-2 t:text-2xl">
-    <h2 class="card__title">
-      Title
-    </h2>
+  <article class="card">
+    <div>
+      <h2 class="card__title">
+        Title
+      </h2>
 
-    <p class="card__description">
-      Test description
-    </p>
+      <p class="card__description">
+        Some description
+      </p>
 
-    <button class="card__button">
-      Learn more
-    </button>
+      <button class="card__button">
+        Learn more
+        <Icon name="app:form-success-circle" />
+      </button>
+    </div>
+    <div>
+      <NuxtImg
+        src="/images/main.png"
+        width="720"
+        height="375"
+        sizes="sm:100vw md:50vw lg:720px"
+        format="webp"
+        loading="lazy"
+        alt="hello"
+      />
+    </div>
   </article>
 </template>
 
 <style lang="scss" scoped>
 .card {
+  display: flex;
   width: 100%;
-  max-width: 360px;
-  padding: 24px;
+  max-width: 80vw;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px;
   border: 1px solid #ddd;
   border-radius: 16px;
+  margin-top: 100px;
   box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
+  gap: 20px;
+  margin-inline: auto;
   transition: transform 0.3s ease;
-  padding: 3px;
 
   &:hover {
     transform: translateY(-4px);
   }
 
+  @media (width < to-em($md)) {
+    flex-direction: column;
+  }
+
   &__title {
     margin-bottom: 12px;
+    font-family: var(--font-heading);
     font-weight: 700;
 
-    @include adaptiveValue('font-size', 56, 16, 1, $containerWidth, $mobile);
+    @include adaptive-value('font-size', 56, 16, 1, $lg, $xs);
 
-    @media (max-width: toEm($mobile)) {
+    @media (width < to-em($sm)) {
       color: red;
     }
   }

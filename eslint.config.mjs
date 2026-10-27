@@ -1,5 +1,7 @@
 import antfu from '@antfu/eslint-config'
+import antiTrojanSource from 'eslint-plugin-anti-trojan-source'
 import betterTailwindcss from 'eslint-plugin-better-tailwindcss'
+import security from 'eslint-plugin-security-node'
 
 export default antfu({
   type: 'app',
@@ -11,6 +13,8 @@ export default antfu({
 
   plugins: {
     'better-tailwindcss': betterTailwindcss,
+    'security-node': security,
+    'anti-trojan-source': antiTrojanSource,
   },
   settings: {
     'better-tailwindcss': {
@@ -44,6 +48,8 @@ export default antfu({
     'node/prefer-global/process': 'off',
     'node/no-process-env': 'error',
 
+    ...security.configs.recommended.rules,
+    ...antiTrojanSource.configs.recommended.rules,
     // 'perfectionist/sort-imports': 'error',
   },
 })

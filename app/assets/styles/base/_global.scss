@@ -2,34 +2,46 @@
 @use 'variables';
 @use '../abstracts/index' as *;
 
+html {
+  overscroll-behavior: none;
+  scrollbar-gutter: stable;
+}
+
+body,
+html {
+  height: 100%;
+}
+
 body {
-  color: var(--main-color);
+  background-color: var(--background);
+  color: var(--foreground);
   font-family: var(--font-family);
   font-size: var(--font-size);
-  min-width: #{$minWidth}px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+// stylelint-disable-next-line selector-id-pattern
 #__nuxt {
-  min-height: 100%;
   display: flex;
-  flex-direction: column;
   overflow: clip;
+  min-height: 100%;
+  flex-direction: column;
 
   > main {
     flex: 1 1 auto;
   }
+
   > * {
     min-width: 0;
   }
 }
 
 [class*='__container'] {
-  max-width: #{$containerWidth}px;
+  max-width: #{$container-width}px;
+  padding-right: #{math.div($container-padding, 2)}px;
+  padding-left: #{math.div($container-padding, 2)}px;
   margin: 0 auto;
-  padding-left: #{math.div($containerPadding, 2)}px;
-  padding-right: #{math.div($containerPadding, 2)}px;
 }
 
 address {
