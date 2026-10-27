@@ -56,6 +56,45 @@ Database rules:
 
 ---
 
+## Environment Configuration
+
+Environment variables are validated using Zod schemas.
+
+Rules:
+
+- All environment variables must have a typed schema.
+- Runtime validation is strict.
+- Build-time validation may skip required runtime variables.
+- Server secrets must never be exposed to the client.
+- Environment configuration should be centralized.
+
+---
+
+## API Communication
+
+Client-side API communication should be isolated from components.
+
+Use composables as the API layer.
+
+Examples:
+
+- `useApi()`
+- `useAuth()`
+- `useUsers()`
+
+Responsibilities:
+
+- calling server endpoints
+- handling loading and error states
+- normalizing API responses
+
+Avoid:
+
+- direct API calls inside components
+- mixing business logic with UI logic
+
+---
+
 ## Architecture
 
 Main principles:
@@ -331,10 +370,19 @@ Use:
 
 Authentication:
 
-Currently under evaluation:
+Authentication should be isolated from application logic.
+
+Possible solutions:
 
 - Better Auth
 - Nuxt Auth Utils
+
+Rules:
+
+- Authentication provider should not leak into business logic.
+- Client auth state should be accessed through composables/stores.
+- Authorization rules belong to server middleware/services.
+- Auth implementation should be replaceable without rewriting the application.
 
 ---
 
