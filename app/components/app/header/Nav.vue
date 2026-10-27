@@ -29,7 +29,6 @@ watch(() => route.path, () => {
         <li
           v-for="item in navigation"
           :key="item.label"
-          class="header-nav__item"
         >
           <NuxtLink
             :to="item.to"
@@ -89,10 +88,6 @@ watch(() => route.path, () => {
       flex-direction: column;
       row-gap: 16px;
     }
-  }
-
-  // .header-nav__item
-  &__item {
   }
 
   // .header-nav__link
