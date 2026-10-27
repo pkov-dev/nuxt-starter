@@ -15,38 +15,61 @@
     "typecheck": "nuxi typecheck",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "check": "pnpm lint && pnpm typecheck",
-    "postinstall": "nuxi prepare && husky"
+    "stylelint": "stylelint \"**/*.{css,scss,vue}\"",
+    "stylelint:fix": "stylelint \"**/*.{css,scss,vue}\" --fix",
+    "check": "pnpm lint && pnpm stylelint && pnpm typecheck",
+    "postinstall": "nuxi prepare && husky",
+    "icons:generate": "tsx tools/generate-icon-collection.ts"
   },
   "dependencies": {
+    "@nuxt/fonts": "^1.0.1",
+    "@nuxt/icon": "^2.5.1",
+    "@nuxt/image": "^2.1.0",
+    "@nuxt/scripts": "2.0.0-beta.16",
+    "@pinia/nuxt": "^1.0.3",
     "@vueuse/core": "^15.0.0",
     "@vueuse/nuxt": "^15.0.0",
     "drizzle-orm": "^0.45.4",
     "drizzle-zod": "^0.8.3",
-    "nuxt": "^4.5.2",
+    "nuxt": "^4.6.1",
+    "nuxt-security": "2.6.0",
     "pg": "^8.23.1",
+    "pinia": "^4.1.0",
     "vue": "^3.5.42",
     "vue-router": "^5.3.1",
     "zod": "3.25.76"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.5.1",
+    "@iconify/tools": "^5.0.14",
+    "@nuxt/a11y": "1.0.0-alpha.1",
+    "@nuxt/hints": "1.1.5",
     "@tailwindcss/vite": "^4.3.3",
     "@types/pg": "^8.23.1",
     "concurrently": "^10.0.6",
     "drizzle-kit": "^0.31.11",
     "eslint": "^10.10.0",
+    "eslint-plugin-anti-trojan-source": "^1.1.7",
     "eslint-plugin-better-tailwindcss": "^4.7.0",
     "eslint-plugin-format": "^2.0.1",
+    "eslint-plugin-security-node": "^1.1.4",
     "husky": "^9.1.7",
     "lint-staged": "^17.5.1",
+    "postcss-pxtorem": "^6.1.0",
     "sass": "^1.104.1",
+    "stylelint": "^17.16.0",
+    "stylelint-config-idiomatic-order": "^10.0.0",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-config-standard-vue": "^2.0.0",
     "tailwindcss": "^4.3.3",
     "vue-tsc": "^3.3.11"
   },
   "lint-staged": {
     "*.{js,ts,vue}": [
       "eslint --fix"
+    ],
+    "*.{css,scss,vue}": [
+      "stylelint --fix"
     ]
   }
 }

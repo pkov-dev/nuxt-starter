@@ -5,3 +5,8 @@
 @import 'tailwindcss/preflight.css' layer(base);
 
 @import 'tailwindcss/utilities.css' layer(utilities) prefix(t);
+
+@theme {
+  --font-sans: var(--font-family);
+  --font-serif: var(--font-heading);
+}

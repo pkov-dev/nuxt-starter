@@ -1,10 +1,24 @@
 :root {
-  // Typography
-
-  --font-family: 'Arial', sans-serif;
+  /* Typography: global text and heading styles */
+  --font-family: 'Outfit', sans-serif;
+  --font-heading: 'Lora', serif;
   --font-size: 16px;
 
-  // Colors
+  /* App: main page background and default text color */
+  --background: #fff;
+  --foreground: #000;
 
-  --main-color: #000;
+  /* Surface: cards, sections and elevated content blocks */
+  --card: #fff;
+  --card-foreground: #000;
+
+  /* Actions: primary and secondary interactive elements */
+  --primary: #000;
+  --primary-foreground: #fff;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #000;
+
+  /* Muted: less important content, disabled states, subtle backgrounds */
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
 }

@@ -1,14 +1,13 @@
 // Layout
-$minWidth: 320;
-$maxWidth: 1920;
-$maxWidthContainer: 1440;
-$containerPadding: 30;
-
-$containerWidth: $maxWidthContainer + $containerPadding;
+$min-width: 320;
+$max-width: 1920;
+$max-width-container: 1440;
+$container-padding: 30;
+$container-width: $max-width-container + $container-padding;
 
 // Breakpoints
-$mobileSmall: 480;
-$mobile: 768;
-$tablet: 1024;
-$desktop: $containerWidth;
-$hd: 1920;
+$xs: 480;
+$sm: 768;
+$md: 1024;
+$lg: $container-width;
+$xl: 1920;

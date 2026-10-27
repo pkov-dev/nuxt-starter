@@ -19,22 +19,22 @@
  */
 // Triangle
 @mixin triangle($direction, $color, $size, $size2: $size) {
-  @if $direction ==left {
+  @if $direction == left {
     border: #{$size2}px solid transparent;
     border-right: #{$size}px solid $color;
   }
 
-  @if $direction ==right {
+  @if $direction == right {
     border: #{$size2}px solid transparent;
     border-left: #{$size}px solid $color;
   }
 
-  @if $direction ==top {
+  @if $direction == top {
     border: #{$size2}px solid transparent;
     border-bottom: #{$size}px solid $color;
   }
 
-  @if $direction ==bottom {
+  @if $direction == bottom {
     border: #{$size2}px solid transparent;
     border-top: #{$size}px solid $color;
   }
@@ -44,13 +44,13 @@
  * @see https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
  *
  * @param {string} $property - CSS property name.
- * @param {number} $startSize - Value at the upper breakpoint.
- * @param {number} $minSize - Value at the lower breakpoint.
- * @param {number} $keepSize - Controls which fallback media queries are generated.
- * @param {number} $widthFrom - Upper fluid breakpoint.
- * @param {number} $widthTo - Lower fluid breakpoint.
+ * @param {number} $start-size - Value at the upper breakpoint.
+ * @param {number} $min-size - Value at the lower breakpoint.
+ * @param {number} $keep-size - Controls which fallback media queries are generated.
+ * @param {number} $width-from - Upper fluid breakpoint.
+ * @param {number} $width-to - Lower fluid breakpoint.
  *
- * keepSize:
+ * keep-size:
  * 0 - Generates all media queries. Nothing else is required.
  *
  * 1 - Generates only the fluid range.
@@ -62,57 +62,58 @@
  * 3 - Keeps only the lower fixed value.
  *     Define the upper media query manually if needed.
  */
-@mixin adaptiveValue(
+@mixin adaptive-value(
   $property,
-  $startSize,
-  $minSize: settings.$minSize,
-  $keepSize: 0,
-  $widthFrom: settings.$containerWidth,
-  $widthTo: settings.$minWidth
+  $start-size,
+  $min-size: settings.$min-size,
+  $keep-size: 0,
+  $width-from: settings.$container-width,
+  $width-to: settings.$min-width
 ) {
-  @if ($startSize==0) {
-    $startSize: 0.000001;
+  @if $start-size == 0 {
+    // stylelint-disable-next-line number-max-precision
+    $start-size: 0.000001;
   }
 
-  @if ($minSize==0) {
-    $minSize: 0.000001;
+  @if $min-size == 0 {
+    // stylelint-disable-next-line number-max-precision
+    $min-size: 0.000001;
   }
 
-  @if ($widthFrom ==settings.$containerWidth and settings.$maxWidthContainer ==0) {
-    $widthFrom: settings.$maxWidth;
+  @if $width-from == settings.$container-width and settings.$max-width-container == 0 {
+    $width-from: settings.$max-width;
   }
 
-  $widthFromMedia: toEm($widthFrom);
-  $widthToMedia: toEm($widthTo);
+  $width-from-media: to-em($width-from);
+  $width-to-media: to-em($width-to);
+  $slope: math.div(($start-size - $min-size), ($width-from - $width-to));
+  $y-intersection: -$width-to * $slope + $min-size;
 
-  $slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
-  $yIntersection: -$widthTo * $slope + $minSize;
-
-  @if ($yIntersection==0) {
-    $yIntersection: 0.000001;
+  @if $y-intersection == 0 {
+    // stylelint-disable-next-line number-max-precision
+    $y-intersection: 0.000001;
   }
 
-  $flyValue: #{$yIntersection}px ' + ' #{$slope * 100}vw;
+  $fly-value: #{$y-intersection}px ' + ' #{$slope * 100}vw;
+  $property-value: #{'clamp(' #{$min-size}px ',' $fly-value ',' #{$start-size}px ')'};
 
-  $propertyValue: #{'clamp(' #{$minSize}px ',' $flyValue ',' #{$startSize}px ')'};
-
-  @if ($minSize > $startSize) {
-    $propertyValue: #{'clamp(' #{$startSize}px ',' $flyValue ',' #{$minSize}px ')'};
+  @if $min-size > $start-size {
+    $property-value: #{'clamp(' #{$start-size}px ',' $fly-value ',' #{$min-size}px ')'};
   }
 
-  @if $keepSize !=1 and $keepSize !=3 {
-    @media (width >=$widthFromMedia) {
-      #{$property}: #{$startSize}px;
+  @if $keep-size != 1 and $keep-size != 3 {
+    @media (width >=$width-from-media) {
+      #{$property}: #{$start-size}px;
     }
   }
 
-  @media (width >=$widthToMedia) and (width < $widthFromMedia) {
-    #{$property}: $propertyValue;
+  @media (width >= $width-to-media) and (width < $width-from-media) {
+    #{$property}: $property-value;
   }
 
-  @if $keepSize !=1 and $keepSize !=2 {
-    @media (width < $widthToMedia) {
-      #{$property}: #{$minSize}px;
+  @if $keep-size != 1 and $keep-size != 2 {
+    @media (width < $width-to-media) {
+      #{$property}: #{$min-size}px;
     }
   }
 }
@@ -120,34 +121,34 @@
 /**
  * @param {number} $type - Content placement preset (0-6).
  * @param {length} $container - Maximum container width.
- * @param {length} $paddingStart - Left container padding.
- * @param {length} $paddingEnd - Right container padding.
+ * @param {length} $padding-start - Left container padding.
+ * @param {length} $padding-end - Right container padding.
  */
 // Grid-контейнер
-@mixin gridContainer(
+@mixin grid-container(
   $type: 0,
-  $container: settings.$maxWidthContainer,
-  $paddingStart: math.div(settings.$containerPadding, 2),
-  $paddingEnd: math.div(settings.$containerPadding, 2)
+  $container: settings.$max-width-container,
+  $padding-start: math.div(settings.$container-padding, 2),
+  $padding-end: math.div(settings.$container-padding, 2)
 ) {
   display: grid;
   min-width: 0;
-  grid-template-columns: #{$paddingStart}px 1fr minmax(auto, #{$container}px) 1fr #{$paddingEnd}px;
+  grid-template-columns: #{$padding-start}px 1fr minmax(auto, #{$container}px) 1fr #{$padding-end}px;
 
   > * {
     min-width: 0;
 
-    @if $type==1 {
+    @if $type == 1 {
       grid-column: 1 / 6;
-    } @else if $type==2 {
+    } @else if $type == 2 {
       grid-column: 2 / 5;
-    } @else if $type==3 {
+    } @else if $type == 3 {
       grid-column: 3 / 6;
-    } @else if $type==4 {
+    } @else if $type == 4 {
       grid-column: 1 / 4;
-    } @else if $type==5 {
+    } @else if $type == 5 {
       grid-column: 2 / 4;
-    } @else if $type==6 {
+    } @else if $type == 6 {
       grid-column: 3 / 5;
     } @else {
       grid-column: 3 / 4;
