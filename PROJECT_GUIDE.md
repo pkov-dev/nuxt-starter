@@ -53,6 +53,12 @@ Database rules:
 - SQL migrations
 - `snake_case` in PostgreSQL
 - `camelCase` in TypeScript
+- Prefer modern PostgreSQL patterns
+- Use production-oriented schema design
+- Prefer `text` for string fields unless length limitation is a real business requirement
+- Prefer string/UUID-based identifiers over auto-increment integers
+- Use database constraints to enforce data integrity
+- Keep schemas explicit and maintainable
 
 ---
 
