@@ -1,24 +1,37 @@
 :root {
-  /* Typography: global text and heading styles */
+  /* Typography */
   --font-family: 'Outfit', sans-serif;
   --font-heading: 'Lora', serif;
   --font-size: 16px;
 
-  /* App: main page background and default text color */
-  --background: #fff;
-  --foreground: #000;
+  /* Radius */
+  --radius: 10px;
 
-  /* Surface: cards, sections and elevated content blocks */
-  --card: #fff;
-  --card-foreground: #000;
+  /* Base */
+  --background: oklch(100% 0 0deg);
+  --foreground: oklch(14.1% 0.005 285.823deg);
 
-  /* Actions: primary and secondary interactive elements */
-  --primary: #000;
-  --primary-foreground: #fff;
-  --secondary: #f5f5f5;
-  --secondary-foreground: #000;
+  /* Surfaces */
+  --card: oklch(100% 0 0deg);
+  --card-foreground: oklch(14.1% 0.005 285.823deg);
+  --popover: oklch(100% 0 0deg);
+  --popover-foreground: oklch(14.1% 0.005 285.823deg);
 
-  /* Muted: less important content, disabled states, subtle backgrounds */
-  --muted: #f5f5f5;
-  --muted-foreground: #737373;
+  /* Actions */
+  --primary: oklch(21% 0.006 285.885deg);
+  --primary-foreground: oklch(98.5% 0 0deg);
+  --secondary: oklch(96.7% 0.001 286.375deg);
+  --secondary-foreground: oklch(21% 0.006 285.885deg);
+
+  /* Muted */
+  --muted: oklch(96.7% 0.001 286.375deg);
+  --muted-foreground: oklch(55.2% 0.016 285.938deg);
+
+  /* States */
+  --destructive: oklch(57.7% 0.245 27.325deg);
+
+  /* Borders */
+  --border: oklch(92% 0.004 286.32deg);
+  --input: oklch(92% 0.004 286.32deg);
+  --ring: oklch(70.5% 0.015 286.067deg);
 }

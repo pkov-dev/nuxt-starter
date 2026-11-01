@@ -13,10 +13,9 @@
         Some description
       </p>
 
-      <button class="card__button">
+      <UiButton to="/about">
         Learn more
-        <Icon name="app:form-success-circle" />
-      </button>
+      </UiButton>
     </div>
     <div>
       <NuxtImg
@@ -46,11 +45,6 @@
   box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
   gap: 20px;
   margin-inline: auto;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
 
   @media (width < to-em($md)) {
     flex-direction: column;
@@ -72,16 +66,6 @@
     margin-bottom: 20px;
     color: #666;
     line-height: 1.5;
-  }
-
-  &__button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background: #222;
-    color: #fff;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
   }
 }
 </style>

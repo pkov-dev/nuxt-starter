@@ -12,6 +12,21 @@ html {
   height: 100%;
 }
 
+button,
+input,
+textarea,
+select,
+a {
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+address {
+  font-style: normal;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
@@ -42,8 +57,4 @@ body {
   padding-right: #{math.div($container-padding, 2)}px;
   padding-left: #{math.div($container-padding, 2)}px;
   margin: 0 auto;
-}
-
-address {
-  font-style: normal;
 }
