@@ -24,7 +24,7 @@
   &__container {
     position: relative;
     display: flex;
-    height: 70px;
+    min-height: 70px;
     align-items: center;
     justify-content: space-between;
     padding-top: 5px;

@@ -4,9 +4,6 @@
   --font-heading: 'Lora', serif;
   --font-size: 16px;
 
-  /* Radius */
-  --radius: 10px;
-
   /* Base */
   --background: oklch(100% 0 0deg);
   --foreground: oklch(14.1% 0.005 285.823deg);
@@ -30,8 +27,22 @@
   /* States */
   --destructive: oklch(57.7% 0.245 27.325deg);
 
+  // --destructive: oklch(50.5% 0.213 27.518deg);
+
   /* Borders */
   --border: oklch(92% 0.004 286.32deg);
+
+  /* Form controls */
   --input: oklch(92% 0.004 286.32deg);
+  --input-hover: oklch(78% 0.008 285.885deg);
+  --input-focus: var(--primary);
   --ring: oklch(70.5% 0.015 286.067deg);
+
+  /* Radius */
+  --radius: 10px;
+  --radius-sm: calc(var(--radius) * 0.6); /* 6px */
+  --radius-md: calc(var(--radius) * 0.8); /* 8px */
+  --radius-lg: var(--radius); /* 10px */
+  --radius-xl: calc(var(--radius) * 1.4); /* 14px */
+  --radius-full: 9999px;
 }

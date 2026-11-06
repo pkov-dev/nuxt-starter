@@ -14,6 +14,13 @@ watch(() => uiStore.isHeaderMenuOpen, (val) => {
 watch(() => route.path, () => {
   uiStore.closeHeaderMenu()
 })
+
+const { smaller } = useAppBreakpoints()
+const isSmallerMd = smaller('md').value
+const isMounted = ref(false)
+onMounted(() => {
+  isMounted.value = true
+})
 </script>
 
 <template>
@@ -24,6 +31,7 @@ watch(() => route.path, () => {
       :class="{
         open: uiStore.isHeaderMenuOpen,
       }"
+      :inert="!uiStore.isHeaderMenuOpen && isSmallerMd && isMounted"
     >
       <ul class="header-nav__list">
         <li
@@ -63,6 +71,7 @@ watch(() => route.path, () => {
       padding: 100px 15px 0;
       background-color: var(--background);
       opacity: 0;
+      pointer-events: none;
       row-gap: 40px;
       transform: translateY(-12px) scale(0.98);
       transition:
@@ -71,6 +80,7 @@ watch(() => route.path, () => {
 
       &.open {
         opacity: 1;
+        pointer-events: all;
         transform: translateY(0) scale(1);
       }
     }
