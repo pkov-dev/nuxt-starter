@@ -21,7 +21,7 @@ export default function validateEnv<T extends ZodRawShape>(
   catch (error) {
     if (error instanceof ZodError) {
       const missing = error.issues
-        .map(issue => `- ${issue.path[0]}`)
+        .map(issue => `- ${String(issue.path[0] ?? 'unknown')}`)
         .join('\n')
 
       const message = `Missing required values in .env:\n${missing}`
