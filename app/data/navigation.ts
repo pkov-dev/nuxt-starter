@@ -4,11 +4,12 @@ export const navigation = [
     to: '/',
   },
   {
-    label: 'Products',
-    to: '/',
-  },
-  {
     label: 'About',
     to: '/about',
   },
+  {
+    label: 'Login',
+    to: '/login',
+  },
+
 ]

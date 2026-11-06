@@ -168,8 +168,13 @@ nuxt-starter
 │   │   │   │   └── Menu.vue
 │   │   │   │
 │   │   │   │
-│   │   │   └── table/
-│   │   │       ├── Base.vue
+│   │   │   ├── table/
+│   │   │   │    ├── Base.vue
+│   │   │   │
+│   │   │   │
+│   │   │   ├── form/
+│   │   │        ├── BaseForm.vue
+│   │   │        └── FormField.vue
 │   │   │
 │   │   ├── app/
 │   │   │   ├── Header.vue
@@ -305,6 +310,119 @@ Avoid:
 - large universal components
 - excessive prop configuration
 - duplicated UI logic
+
+---
+
+## Form Components Architecture
+
+Forms follow a layered component architecture:
+
+    Form
+     └── FormField
+          └── Input Component
+
+Each layer has a clearly defined responsibility.
+
+---
+
+## Form
+
+**Responsibility:**
+Manage the form lifecycle and global form state.
+
+Handles:
+
+- form submission
+- validation integration
+- pending/loading state
+- submit errors
+- success state
+- reset functionality
+
+The form component should not know about individual fields or specific input types.
+
+---
+
+## FormField
+
+**Responsibility:**
+Provide a common wrapper for form fields and manage field-level UI state.
+
+Handles:
+
+- label rendering
+- description/hint text
+- error message display
+- required state
+- accessibility attributes
+- consistent field layout
+
+The component should be independent from specific input components.
+
+Input controls should be provided through slots.
+
+Example:
+
+    <FormField label="Email" name="email">
+      <UiInput />
+    </FormField>
+
+---
+
+## Input Components
+
+Input components are responsible for rendering controls and handling input-specific behavior.
+
+The first implementation focuses on common text-based inputs:
+
+    BaseInput
+     ├── text
+     ├── email
+     ├── password
+     ├── number
+     ├── tel
+     ├── url
+     └── search
+
+`BaseInput` responsibilities:
+
+- native input behavior
+- value binding
+- input events
+- disabled state
+- common HTML attributes
+
+`BaseInput` should not contain form layout or validation UI.
+
+---
+
+## Component Layers
+
+Components should follow the layered approach:
+
+    Base component
+          ↓
+    UI component
+          ↓
+    Feature component
+
+Example:
+
+    BaseInput
+          ↓
+    UiInput
+          ↓
+    LoginForm
+
+Responsibilities:
+
+- `Base*` components provide low-level reusable behavior.
+- `Ui*` components provide project-specific styling and design system integration.
+- `Feature` components combine UI components with business logic.
+
+Avoid creating large universal components with many configuration props.
+
+Prefer composition through smaller focused components.
 
 ---
 

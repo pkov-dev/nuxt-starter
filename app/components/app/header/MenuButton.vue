@@ -35,6 +35,7 @@ const ariaLabel = computed(() => props.isOpen ? 'Close navigation menu' : 'Open 
     display: block;
     width: 30px;
     height: 18px;
+    cursor: pointer;
 
     span,
     &::before,
