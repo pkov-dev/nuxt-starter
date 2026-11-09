@@ -1,60 +1,56 @@
 <script lang="ts" setup>
-// import z from 'zod'
+import { useForm } from 'vee-validate'
+import { z } from 'zod'
 
-// const LoginSchema = z.object({
-//   email: z.string().email('Invalid email frontend'),
-//   password: z.string().min(8, 'Minimum 8 characters front'),
-// })
+const LoginSchema = z.object({
+  email: z.email('Invalid email frontend'),
+  password: z.string().min(8, 'Minimum 8 characters front'),
+})
 
-// type LoginForm = z.infer<typeof LoginSchema>
+type LoginForm = z.infer<typeof LoginSchema>
 
-// const {
-//   handleSubmit,
-//   defineField,
-//   setErrors,
-// } = useForm<LoginForm>({
-//   validationSchema: toTypedSchema(LoginSchema),
-// })
-
-const form = ref({
-  email: '',
-  password: '',
+const {
+  handleSubmit,
+  values,
+} = useForm<LoginForm>({
+  validationSchema: LoginSchema,
 })
 
 const { csrf, headerName } = useCsrf()
-
-async function login() {
-  const result = await $fetch('/api/test', {
+const submit = handleSubmit(async (values) => {
+  await $fetch('/api/test', {
     method: 'POST',
-    body: form.value,
+    body: values,
     headers: {
       [headerName]: csrf,
     },
   })
-
-  return result
-}
+})
 </script>
 
 <template>
   <UiForm
-    :submit="login"
+    :submit="submit"
   >
     <template #header>
       <h1 class="form__title">
         Login Form
       </h1>
+      {{ values }}
     </template>
     <template #default="{ disabled }">
       <UiFormField
-        v-model="form.email"
         label="Email"
+        name="email"
+        required
+        autocomplete="email"
         :disabled
       />
 
       <UiFormField
-        v-model="form.password"
+        name="password"
         label="Password"
+        required
         :disabled
       />
     </template>
