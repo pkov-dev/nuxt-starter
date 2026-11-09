@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
 const schema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
+  email: z.email('Invalid email'),
+  password: z.string().min(20, 'Password must be at least 8 characters'),
 })
 
 export default defineEventHandler(async (event) => {

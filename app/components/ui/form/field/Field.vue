@@ -1,9 +1,8 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 const props = defineProps<FormTextFieldProps>()
-const modelValue = defineModel<InputValue>()
 
 const inputProps = computed(() => {
-  const { label, error, description, ...rest } = props
+  const { label, name, required, description, validateOnValueUpdate, ...rest } = props
 
   return rest
 })
@@ -11,15 +10,15 @@ const inputProps = computed(() => {
 
 <template>
   <UiFormFieldBase
-    :label="props.label"
-    :error="props.error"
-    :required="props.required"
-    :description="props.description"
+    :name
+    :label
+    :required
+    :description
+    :validate-on-value-update
   >
     <template #default="{ field }">
       <UiInput
         v-bind="{ ...inputProps, ...field }"
-        v-model="modelValue"
         :type="props.type"
       />
     </template>

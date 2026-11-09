@@ -14,7 +14,7 @@ export interface FormInputProps {
   required?: boolean
 }
 
-export type InputValue = string | number
+export type InputValue = string | number | undefined
 
 export interface FormTextInputProps extends FormInputProps {
   placeholder?: string
@@ -28,10 +28,19 @@ export interface FormTextInputProps extends FormInputProps {
 }
 
 export interface FormFieldProps {
+  name: string
   label?: string
   description?: string
-  error?: string
   required?: boolean
+  validateOnValueUpdate?: boolean
 }
 
-export type FormTextFieldProps = Omit<FormTextInputProps, 'error' | 'ariaDescribedby' | 'required'> & FormFieldProps
+export type FormTextFieldProps
+  = Omit<
+    FormTextInputProps,
+    'error'
+    | 'ariaDescribedby'
+    | 'required'
+    | 'name'
+  >
+  & FormFieldProps
