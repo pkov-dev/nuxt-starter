@@ -26,7 +26,9 @@ const field = computed(() => ({
   id,
   'modelValue': value.value,
   'onUpdate:modelValue': (newValue: InputValue) => {
-    handleChange(newValue, props.validateOnValueUpdate)
+    // '' -> undefined: a cleared field is treated as "not filled",
+    // so `.optional()` fields stay valid when emptied
+    handleChange(newValue === '' ? undefined : newValue, props.validateOnValueUpdate)
   },
   'onBlur': (event: FocusEvent) => {
     handleBlur(event, props.validateOnBlur)
