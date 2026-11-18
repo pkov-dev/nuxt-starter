@@ -33,6 +33,7 @@ export interface FormFieldProps {
   description?: string
   required?: boolean
   validateOnValueUpdate?: boolean
+  validateOnBlur?: boolean
 }
 
 export type FormTextFieldProps

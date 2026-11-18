@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { useField } from 'vee-validate'
 import { useId } from 'vue'
+import { FORM_VALIDATION_DEFAULTS } from '../constants'
 
-const props = withDefaults(defineProps<FormFieldProps>(), {
-  validateOnValueUpdate: false,
-})
+const props = withDefaults(defineProps<FormFieldProps>(), FORM_VALIDATION_DEFAULTS)
 const id = useId()
-
 const {
   value,
   errorMessage,
@@ -30,7 +28,9 @@ const field = computed(() => ({
   'onUpdate:modelValue': (newValue: InputValue) => {
     handleChange(newValue, props.validateOnValueUpdate)
   },
-  'onBlur': handleBlur,
+  'onBlur': (event: FocusEvent) => {
+    handleBlur(event, props.validateOnBlur)
+  },
   'aria-invalid': errorMessage.value
     ? 'true'
     : undefined,
