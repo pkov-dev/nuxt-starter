@@ -52,4 +52,26 @@ export default antfu({
     ...antiTrojanSource.configs.recommended.rules,
     // 'perfectionist/sort-imports': 'error',
   },
+}, {
+  // shared/ runs on both client and server: it must not depend on either side
+  files: ['shared/**'],
+  rules: {
+    'no-restricted-imports': ['error', {
+      patterns: [{
+        group: ['~/*', '~~/app/*', '#build/*', '~~/server/*', '**/server/**', '~~/config/*', '**/config/*'],
+        message: 'shared/ must not import from app/, server/ or config/.',
+      }],
+    }],
+  },
+}, {
+  // app/ is bundled for the browser: no database connection, no server env
+  files: ['app/**'],
+  rules: {
+    'no-restricted-imports': ['error', {
+      patterns: [{
+        group: ['~~/server/db/*', '**/server/db/**', '~~/config/*', '**/config/*'],
+        message: 'app/ must not import the database client or server env. Use #shared/* for schemas.',
+      }],
+    }],
+  },
 })

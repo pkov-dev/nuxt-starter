@@ -48,7 +48,9 @@ Principles:
 
 Database rules:
 
-- `db/` is the single database layer
+- Table definitions (`pgTable`) live in `shared/db/schema/` — isomorphic, no connection, no secrets
+- Database connection and migrations live in `server/db/` — server only
+- Inside `shared/db/schema/` use relative imports only (drizzle-kit does not resolve Nuxt aliases)
 - Schema-first approach
 - SQL migrations
 - `snake_case` in PostgreSQL
@@ -251,25 +253,25 @@ nuxt-starter
 │   ├── api/
 │   ├── middleware/
 │   ├── plugins/
-│   └── modules/
-│       ├── users/
-│       │   ├── users.repository.ts
-│       │   ├── users.service.ts
-│       │   └── users.queries.ts
-│       └── products/
-│           ├── products.repository.ts
-│           ├── products.service.ts
-│           └── products.queries.ts
-│
-├── db/
-│   ├── client.ts
-│   ├── schema/
-│   │   ├── users.ts
-│   │   ├── products.ts
-│   │   └── index.ts
-│   └── migrations/
+│   ├── modules/
+│   │   ├── users/
+│   │   │   ├── users.repository.ts
+│   │   │   ├── users.service.ts
+│   │   │   └── users.queries.ts
+│   │   └── products/
+│   │       ├── products.repository.ts
+│   │       ├── products.service.ts
+│   │       └── products.queries.ts
+│   └── db/
+│       ├── client.ts
+│       └── migrations/
 │
 ├── shared/
+│   ├── db/
+│   │   └── schema/
+│   │       ├── users.ts
+│   │       ├── products.ts
+│   │       └── index.ts
 │   ├── types/
 │   ├── utils/
 │   ├── constants/
