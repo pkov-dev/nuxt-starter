@@ -1,16 +1,19 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="T extends ZodObject">
+import type { FormOptions } from 'vee-validate'
+import type { z, ZodObject } from 'zod'
 import { FetchError } from 'ofetch'
+import { useForm } from 'vee-validate'
 
-type ServerErrors = Record<string, string[]>
-
-interface Props {
-  submit: () => Promise<unknown>
-  disabled?: boolean
+interface Props<T extends ZodObject> {
+  schema: T
+  submit: (values: z.infer<T>) => Promise<unknown>
+  initialValues?: FormOptions<z.infer<T>>['initialValues']
   successMessage?: string
   showMessage?: boolean
+  namespace?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props<T>>(), {
   successMessage: 'Form submitted successfully',
   showMessage: true,
 })
@@ -23,22 +26,25 @@ const emit = defineEmits<{
   }]
 }>()
 
-const loading = ref(false)
 const internalError = ref<string>()
-const serverValidationErrors = ref<ServerErrors>()
 const success = ref(false)
 
-async function handleSubmit() {
-  if (loading.value)
-    return
+const {
+  handleSubmit,
+  values,
+  isSubmitting,
+  setErrors,
+} = useForm<z.infer<T>>({
+  validationSchema: props.schema,
+  initialValues: props.initialValues,
+})
 
-  loading.value = true
+const onSubmit = handleSubmit(async () => {
   internalError.value = undefined
-  serverValidationErrors.value = undefined
   success.value = false
 
   try {
-    await props.submit()
+    await props.submit(values)
 
     success.value = true
     emit('success')
@@ -48,7 +54,9 @@ async function handleSubmit() {
       internalError.value = error.data?.statusMessage
 
       if (error.data.data) {
-        serverValidationErrors.value = error.data.data
+        const formattedErrors = formatZodErrors<z.infer<T>>(error.data.data, props.namespace)
+
+        setErrors(formattedErrors)
       }
     }
 
@@ -58,10 +66,7 @@ async function handleSubmit() {
 
     emit('error', { error, message: internalError.value })
   }
-  finally {
-    loading.value = false
-  }
-}
+})
 
 const message = computed(() => {
   if (internalError.value) {
@@ -85,10 +90,10 @@ const message = computed(() => {
 <template>
   <form
     class="form"
-    @submit.prevent="handleSubmit"
+    @submit.prevent="onSubmit"
   >
     <slot name="header" />
-
+    {{ values }}
     <slot v-if="props.showMessage" name="message">
       <LazyUiAlert
         v-if="message"
@@ -98,15 +103,14 @@ const message = computed(() => {
     </slot>
 
     <slot
-      :loading
-      :disabled="disabled || loading"
-      :server-validation-errors
+      :loading="isSubmitting"
+      :disabled="isSubmitting"
     />
 
     <slot
       name="footer"
-      :loading
-      :disabled="disabled || loading"
+      :loading="isSubmitting"
+      :disabled="isSubmitting"
     />
   </form>
 </template>

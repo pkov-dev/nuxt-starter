@@ -1,8 +1,10 @@
 <script setup lang="ts">
-const props = defineProps<FormTextFieldProps>()
+import { FORM_VALIDATION_DEFAULTS } from '../constants'
+
+const props = withDefaults(defineProps<FormTextFieldProps>(), FORM_VALIDATION_DEFAULTS)
 
 const inputProps = computed(() => {
-  const { label, name, required, description, validateOnValueUpdate, ...rest } = props
+  const { label, name, required, description, validateOnValueUpdate, validateOnBlur, ...rest } = props
 
   return rest
 })
@@ -15,6 +17,7 @@ const inputProps = computed(() => {
     :required
     :description
     :validate-on-value-update
+    :validate-on-blur
   >
     <template #default="{ field }">
       <UiInput

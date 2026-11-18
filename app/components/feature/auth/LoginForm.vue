@@ -1,23 +1,15 @@
 <script lang="ts" setup>
-import { useForm } from 'vee-validate'
 import { z } from 'zod'
 
 const LoginSchema = z.object({
-  email: z.email('Invalid email frontend'),
-  password: z.string().min(8, 'Minimum 8 characters front'),
+  email: z.email(),
+  password: z.string().min(8),
 })
 
-type LoginForm = z.infer<typeof LoginSchema>
-
-const {
-  handleSubmit,
-  values,
-} = useForm<LoginForm>({
-  validationSchema: LoginSchema,
-})
+type SchemaType = z.infer<typeof LoginSchema>
 
 const { csrf, headerName } = useCsrf()
-const submit = handleSubmit(async (values) => {
+async function onSubmit(values: SchemaType) {
   await $fetch('/api/test', {
     method: 'POST',
     body: values,
@@ -25,18 +17,19 @@ const submit = handleSubmit(async (values) => {
       [headerName]: csrf,
     },
   })
-})
+}
 </script>
 
 <template>
   <UiForm
-    :submit="submit"
+    :submit="onSubmit"
+    :schema="LoginSchema"
+    namespace="auth"
   >
     <template #header>
       <h1 class="form__title">
         Login Form
       </h1>
-      {{ values }}
     </template>
     <template #default="{ disabled }">
       <UiFormField

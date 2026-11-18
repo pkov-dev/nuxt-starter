@@ -14,7 +14,7 @@ export async function readValidatedBodyZod<
     throw createError({
       statusCode: 422,
       statusMessage: 'Validation failed',
-      data: result.error.flatten().fieldErrors,
+      data: result.error.issues,
     })
   }
 
