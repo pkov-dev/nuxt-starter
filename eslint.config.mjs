@@ -64,13 +64,13 @@ export default antfu({
     }],
   },
 }, {
-  // app/ is bundled for the browser: no database connection, no server env
+  // app/ is bundled for the browser: nothing from server/, no server env
   files: ['app/**'],
   rules: {
     'no-restricted-imports': ['error', {
       patterns: [{
-        group: ['~~/server/db/*', '**/server/db/**', '~~/config/*', '**/config/*'],
-        message: 'app/ must not import the database client or server env. Use #shared/* for schemas.',
+        group: ['~~/server/*', '**/server/**', '~~/config/*', '**/config/*'],
+        message: 'app/ must not import from server/ or config/. Share code through #shared/*.',
       }],
     }],
   },

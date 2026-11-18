@@ -1,8 +1,11 @@
 <script lang="ts" setup generic="T extends ZodObject">
 import type { FormOptions } from 'vee-validate'
 import type { z, ZodObject } from 'zod'
+import type { Namespace } from '~/utils/validation/get-message'
 import { FetchError } from 'ofetch'
 import { useForm } from 'vee-validate'
+import { formatServerIssues, isIssueList } from '~/utils/validation/format-server-issues'
+import { withMessages } from '~/utils/validation/with-messages'
 
 interface Props<T extends ZodObject> {
   schema: T
@@ -10,7 +13,7 @@ interface Props<T extends ZodObject> {
   initialValues?: FormOptions<z.infer<T>>['initialValues']
   successMessage?: string
   showMessage?: boolean
-  namespace?: string
+  namespace?: Namespace
 }
 
 const props = withDefaults(defineProps<Props<T>>(), {
@@ -35,7 +38,7 @@ const {
   isSubmitting,
   setErrors,
 } = useForm<z.infer<T>>({
-  validationSchema: props.schema,
+  validationSchema: withMessages(props.schema, props.namespace),
   initialValues: props.initialValues,
 })
 
@@ -53,10 +56,10 @@ const onSubmit = handleSubmit(async () => {
     if (error instanceof FetchError) {
       internalError.value = error.data?.statusMessage
 
-      if (error.data.data) {
-        const formattedErrors = formatZodErrors<z.infer<T>>(error.data.data, props.namespace)
+      const issues = error.data?.data
 
-        setErrors(formattedErrors)
+      if (isIssueList(issues)) {
+        setErrors(formatServerIssues(issues, values, props.namespace))
       }
     }
 
