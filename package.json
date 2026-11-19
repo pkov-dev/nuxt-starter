@@ -17,6 +17,9 @@
     "lint:fix": "eslint . --fix",
     "stylelint": "stylelint \"**/*.{css,scss,vue}\"",
     "stylelint:fix": "stylelint \"**/*.{css,scss,vue}\" --fix",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
     "check": "pnpm lint && pnpm stylelint && pnpm typecheck",
     "postinstall": "nuxi prepare && husky",
     "icons:generate": "tsx tools/generate-icon-collection.ts"

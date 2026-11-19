@@ -49,18 +49,16 @@ Principles:
 Database rules:
 
 - Table definitions (`pgTable`) live in `shared/db/schema/` — isomorphic, no connection, no secrets
+- Zod schemas (drizzle-zod + business rules) live in `shared/schemas/`
 - Database connection and migrations live in `server/db/` — server only
-- Inside `shared/db/schema/` use relative imports only (drizzle-kit does not resolve Nuxt aliases)
-- Schema-first approach
-- SQL migrations
-- `snake_case` in PostgreSQL
-- `camelCase` in TypeScript
-- Prefer modern PostgreSQL patterns
-- Use production-oriented schema design
-- Prefer `text` for string fields unless length limitation is a real business requirement
-- Prefer string/UUID-based identifiers over auto-increment integers
+- Schema-first approach, SQL migrations
+- `snake_case` in PostgreSQL, `camelCase` in TypeScript
+- Ids: `uuid().primaryKey().defaultRandom()`
+- Strings: `text`; length limits go to Zod schemas
+- Dates: `timestamp({ withTimezone: true })`
 - Use database constraints to enforce data integrity
-- Keep schemas explicit and maintainable
+
+Details: [decisions/database-and-schemas.md](decisions/database-and-schemas.md).
 
 ---
 
