@@ -34,7 +34,7 @@ Principles:
 - TypeScript
 - pnpm
 - SCSS
-- Tailwind CSS (utility layer only)
+- Tailwind CSS (utility layer only, see [decisions/styles.md](decisions/styles.md))
 - Pinia
 - Nuxt Icon
 - Nuxt Fonts
