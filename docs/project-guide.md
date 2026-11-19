@@ -175,8 +175,10 @@ nuxt-starter
 │   │   │   │
 │   │   │   │
 │   │   │   ├── form/
-│   │   │        ├── BaseForm.vue
-│   │   │        └── FormField.vue
+│   │   │        ├── Form.vue
+│   │   │        └── field/
+│   │   │            ├── Base.vue
+│   │   │            └── Field.vue
 │   │   │
 │   │   ├── app/
 │   │   │   ├── Header.vue
@@ -325,6 +327,20 @@ Forms follow a layered component architecture:
 
 Each layer has a clearly defined responsibility.
 
+Files:
+
+    components/ui/
+    ├── form/
+    │   ├── Form.vue          UiForm
+    │   └── field/
+    │       ├── Base.vue      UiFormFieldBase — label, error, description, control via slot
+    │       └── Field.vue     UiFormField — FieldBase + UiInput for text inputs
+    └── input/
+        ├── Base.vue          UiInputBase — native input behavior
+        └── Input.vue         UiInput — project styling
+
+Validation texts and error handling: [decisions/validation-and-errors.md](decisions/validation-and-errors.md).
+
 ---
 
 ## Form
@@ -365,9 +381,14 @@ Input controls should be provided through slots.
 
 Example:
 
-    <FormField label="Email" name="email">
-      <UiInput />
-    </FormField>
+    <UiFormFieldBase label="Email" name="email">
+      <template #default="{ field }">
+        <UiInput v-bind="field" />
+      </template>
+    </UiFormFieldBase>
+
+    <!-- shortcut for text inputs -->
+    <UiFormField label="Email" name="email" />
 
 ---
 

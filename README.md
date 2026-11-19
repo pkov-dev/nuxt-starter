@@ -2,6 +2,8 @@
 
 Nuxt 4 + Vue 3 + TypeScript starter.
 
+Architecture and decisions: [docs/](docs/README.md).
+
 ## Stack
 
 - Nuxt 4
