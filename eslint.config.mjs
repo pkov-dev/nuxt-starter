@@ -50,7 +50,6 @@ export default antfu({
 
     ...security.configs.recommended.rules,
     ...antiTrojanSource.configs.recommended.rules,
-    // 'perfectionist/sort-imports': 'error',
   },
 }, {
   files: ['shared/**'],
