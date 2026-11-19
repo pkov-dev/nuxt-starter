@@ -1,17 +1,11 @@
 import type { z } from 'zod'
-import type { Namespace } from './get-message'
 
 import { getMessage } from './get-message'
 
-/**
- * Server responds with raw Zod issues (no texts).
- * Zod strips `input` from them, so it is restored from the submitted form values
- * and the issue goes through the same `getMessage` as client-side validation.
- */
+/** Server issues → field texts. `input` is restored from form values (Zod strips it). */
 export function formatServerIssues<TValues extends object>(
   issues: z.core.$ZodIssue[],
   values: TValues,
-  namespace?: Namespace,
 ): Partial<Record<keyof TValues, string>> {
   const errors: Partial<Record<string, string>> = {}
 
@@ -19,7 +13,7 @@ export function formatServerIssues<TValues extends object>(
     const field = issue.path.join('.')
     const input = getByPath(values, issue.path)
 
-    errors[field] ??= getMessage({ ...issue, input } as z.core.$ZodRawIssue, namespace)
+    errors[field] ??= getMessage({ ...issue, input } as z.core.$ZodRawIssue)
   }
 
   return errors as Partial<Record<keyof TValues, string>>

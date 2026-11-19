@@ -1,11 +1,12 @@
 <script lang="ts" setup generic="T extends ZodObject">
 import type { FormOptions } from 'vee-validate'
 import type { z, ZodObject } from 'zod'
-import type { Namespace } from '~/utils/validation/get-message'
 import { FetchError } from 'ofetch'
 import { useForm } from 'vee-validate'
 import { formatServerIssues, isIssueList } from '~/utils/validation/format-server-issues'
-import { withMessages } from '~/utils/validation/with-messages'
+import { getFormErrorMessage } from '~/utils/validation/get-form-error-message'
+import { localizeSchema } from '~/utils/validation/localize-schema'
+import { messages } from '~/utils/validation/messages'
 
 interface Props<T extends ZodObject> {
   schema: T
@@ -13,11 +14,10 @@ interface Props<T extends ZodObject> {
   initialValues?: FormOptions<z.infer<T>>['initialValues']
   successMessage?: string
   showMessage?: boolean
-  namespace?: Namespace
 }
 
 const props = withDefaults(defineProps<Props<T>>(), {
-  successMessage: 'Form submitted successfully',
+  successMessage: messages.form.success,
   showMessage: true,
 })
 
@@ -38,7 +38,7 @@ const {
   isSubmitting,
   setErrors,
 } = useForm<z.infer<T>>({
-  validationSchema: withMessages(props.schema, props.namespace),
+  validationSchema: localizeSchema(props.schema),
   initialValues: props.initialValues,
 })
 
@@ -53,18 +53,15 @@ const onSubmit = handleSubmit(async () => {
     emit('success')
   }
   catch (error) {
-    if (error instanceof FetchError) {
-      internalError.value = error.data?.statusMessage
+    if (import.meta.dev)
+      console.error(error)
 
-      const issues = error.data?.data
+    internalError.value = getFormErrorMessage(error)
 
-      if (isIssueList(issues)) {
-        setErrors(formatServerIssues(issues, values, props.namespace))
-      }
-    }
+    const issues = error instanceof FetchError ? error.data?.data : undefined
 
-    if (!internalError.value) {
-      internalError.value = 'Something went wrong'
+    if (isIssueList(issues)) {
+      setErrors(formatServerIssues(issues, values))
     }
 
     emit('error', { error, message: internalError.value })

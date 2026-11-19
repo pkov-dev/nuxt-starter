@@ -2,6 +2,12 @@ import type { H3Event } from 'h3'
 import type { z, ZodType } from 'zod'
 import { readValidatedBody } from 'h3'
 
+/**
+ * Reads and validates the request body. Throws 422 with raw Zod issues on failure.
+ *
+ * @example
+ * const body = await readValidatedBodyZod(event, LoginSchema)
+ */
 export async function readValidatedBodyZod<
   TSchema extends ZodType,
 >(
