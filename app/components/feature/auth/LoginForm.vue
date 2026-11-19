@@ -24,7 +24,6 @@ async function onSubmit(values: SchemaType) {
   <UiForm
     :submit="onSubmit"
     :schema="LoginSchema"
-    namespace="auth"
   >
     <template #header>
       <h1 class="form__title">
