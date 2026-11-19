@@ -18,6 +18,5 @@ const modelValue = defineModel<InputValue>()
     :type
     :aria-invalid="props.error ? 'true' : undefined"
     :aria-describedby="props.ariaDescribedby"
-    v-bind="$attrs"
   >
 </template>

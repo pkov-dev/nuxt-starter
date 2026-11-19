@@ -48,8 +48,8 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3))
       vee-validate:
-        specifier: 5.0.0-beta.0
-        version: 5.0.0-beta.0(vue@3.5.44(typescript@6.0.3))
+        specifier: 5.0.0-beta.1
+        version: 5.0.0-beta.1(vue@3.5.44(typescript@6.0.3))
       vue:
         specifier: ^3.5.42
         version: 3.5.44(typescript@6.0.3)
@@ -6236,8 +6236,8 @@ packages:
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
 
-  vee-validate@5.0.0-beta.0:
-    resolution: {integrity: sha512-uGIRnODDMM0A8Weu8AJcZFFJceUpgbSX6G4UYZgWhBc90VcXDK+v7yO16G+sj+6vU1eML11M2BH4HxwoPE62rw==}
+  vee-validate@5.0.0-beta.1:
+    resolution: {integrity: sha512-Z9cyGtupC5L+9zBzrcw59OFAnHeWJUL/On2fbLSioRo1Evc717xbnx4oPYbH59VvUegYQ1hJZPregAAcH45KOA==}
     peerDependencies:
       vue: ^3.4.26
 
@@ -13112,7 +13112,7 @@ snapshots:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
 
-  vee-validate@5.0.0-beta.0(vue@3.5.44(typescript@6.0.3)):
+  vee-validate@5.0.0-beta.1(vue@3.5.44(typescript@6.0.3)):
     dependencies:
       '@standard-schema/spec': 1.1.0
       '@standard-schema/utils': 0.3.0
