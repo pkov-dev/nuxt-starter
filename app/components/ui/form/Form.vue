@@ -42,12 +42,12 @@ const {
   initialValues: props.initialValues,
 })
 
-const onSubmit = handleSubmit(async () => {
+const onSubmit = handleSubmit(async (parsed) => {
   internalError.value = undefined
   success.value = false
 
   try {
-    await props.submit(values)
+    await props.submit(parsed)
 
     success.value = true
     emit('success')
@@ -93,7 +93,7 @@ const message = computed(() => {
     @submit.prevent="onSubmit"
   >
     <slot name="header" />
-    {{ values }}
+
     <slot v-if="props.showMessage" name="message">
       <LazyUiAlert
         v-if="message"
