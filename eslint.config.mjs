@@ -53,7 +53,6 @@ export default antfu({
     // 'perfectionist/sort-imports': 'error',
   },
 }, {
-  // shared/ runs on both client and server: it must not depend on either side
   files: ['shared/**'],
   rules: {
     'no-restricted-imports': ['error', {
@@ -64,7 +63,6 @@ export default antfu({
     }],
   },
 }, {
-  // app/ is bundled for the browser: nothing from server/, no server env
   files: ['app/**'],
   rules: {
     'no-restricted-imports': ['error', {
