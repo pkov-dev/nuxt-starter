@@ -1,8 +1,8 @@
 <script lang="ts" setup generic="T extends ZodObject">
 import type { FormOptions } from 'vee-validate'
 import type { z, ZodObject } from 'zod'
-import { FetchError } from 'ofetch'
 import { useForm } from 'vee-validate'
+import { getSubmitErrorData } from '~/utils/validation/form-submit-error'
 import { formatServerIssues, isIssueList } from '~/utils/validation/format-server-issues'
 import { getFormErrorMessage } from '~/utils/validation/get-form-error-message'
 import { localizeSchema } from '~/utils/validation/localize-schema'
@@ -58,7 +58,7 @@ const onSubmit = handleSubmit(async (parsed) => {
 
     internalError.value = getFormErrorMessage(error)
 
-    const issues = error instanceof FetchError ? error.data?.data : undefined
+    const issues = getSubmitErrorData(error)
 
     if (isIssueList(issues)) {
       setErrors(formatServerIssues(issues, values))

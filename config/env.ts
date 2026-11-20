@@ -8,6 +8,8 @@ const EnvSchema = z.object({
   POSTGRES_PASSWORD: z.string(),
   POSTGRES_DB: z.string(),
   DATABASE_URL: z.string(),
+
+  BETTER_AUTH_SECRET: z.string().min(32),
 })
 
 export type Env = z.infer<typeof EnvSchema>

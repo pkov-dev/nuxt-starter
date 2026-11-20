@@ -48,8 +48,7 @@ Principles:
 
 Database rules:
 
-- Table definitions (`pgTable`) live in `shared/db/schema/` — isomorphic, no connection, no secrets
-- Zod schemas (drizzle-zod + business rules) live in `shared/schemas/`
+- Tables (`*.table.ts`) and Zod schemas (`*.schema.ts`) live in the layer that owns them: `layers/<name>/shared/`
 - Database connection and migrations live in `server/db/` — server only
 - Schema-first approach, SQL migrations
 - `snake_case` in PostgreSQL, `camelCase` in TypeScript
@@ -105,7 +104,7 @@ Avoid:
 
 Main principles:
 
-- Feature-oriented structure
+- Core + one layer per business area: [decisions/layers.md](decisions/layers.md)
 - High cohesion
 - Low coupling
 - Reusable components
@@ -196,30 +195,6 @@ nuxt-starter
 │   │   │   ├── FilePreview.vue
 │   │   │   └── StatusBadge.vue
 │   │   │
-│   │   ├── feature/
-│   │   │   ├── auth/
-│   │   │   │   ├── LoginForm.vue
-│   │   │   │   ├── RegisterForm.vue
-│   │   │   │   ├── ForgotPassword.vue
-│   │   │   │   └── UserMenu.vue
-│   │   │   ├── user/
-│   │   │   │   ├── Profile.vue
-│   │   │   │   ├── Avatar.vue
-│   │   │   │   └── Settings.vue
-│   │   │   ├── catalog/
-│   │   │   │   ├── Card.vue
-│   │   │   │   ├── Filter.vue
-│   │   │   │   ├── Sort.vue
-│   │   │   │   └── List.vue
-│   │   │   ├── checkout/
-│   │   │   │   ├── Form.vue
-│   │   │   │   ├── Summary.vue
-│   │   │   │   └── Payment.vue
-│   │   │   └── product/
-│   │   │       ├── Card.vue
-│   │   │       ├── Gallery.vue
-│   │   │       └── Details.vue
-│   │   │
 │   │   └── page/
 │   │       ├── home/
 │   │       │   ├── Hero.vue
@@ -253,29 +228,26 @@ nuxt-starter
 │   ├── api/
 │   ├── middleware/
 │   ├── plugins/
-│   ├── modules/
-│   │   ├── users/
-│   │   │   ├── users.repository.ts
-│   │   │   ├── users.service.ts
-│   │   │   └── users.queries.ts
-│   │   └── products/
-│   │       ├── products.repository.ts
-│   │       ├── products.service.ts
-│   │       └── products.queries.ts
 │   └── db/
 │       ├── client.ts
 │       └── migrations/
 │
 ├── shared/
-│   ├── db/
-│   │   └── schema/
-│   │       ├── users.ts
-│   │       ├── products.ts
-│   │       └── index.ts
 │   ├── types/
 │   ├── utils/
-│   ├── constants/
-│   └── schemas/
+│   └── constants/
+│
+├── layers/                  one folder per business area
+│   ├── auth/
+│   │   ├── nuxt.config.ts
+│   │   ├── app/             components/auth/, pages/, utils/
+│   │   ├── server/
+│   │   └── shared/          auth.table.ts, auth.schema.ts
+│   └── catalog/
+│       ├── nuxt.config.ts
+│       ├── app/             components/catalog/, composables/, pages/catalog/
+│       ├── server/          api/products/, product.service.ts, product.repository.ts
+│       └── shared/          product.table.ts, product.schema.ts
 │
 ├── public/
 ├── content/
@@ -433,13 +405,13 @@ Example:
           ↓
     UiInput
           ↓
-    LoginForm
+    AuthSignInForm
 
 Responsibilities:
 
 - `Base*` components provide low-level reusable behavior.
 - `Ui*` components provide project-specific styling and design system integration.
-- `Feature` components combine UI components with business logic.
+- Layer components (`layers/<name>/app/components/<name>/`) combine UI components with business logic.
 
 Avoid creating large universal components with many configuration props.
 
@@ -449,18 +421,16 @@ Prefer composition through smaller focused components.
 
 ## Server Architecture
 
+Server code of a business area lives in its layer:
+
 ```text
-server/
-
-api/
-modules/
-
-module/
-
-repository
-service
-queries
+layers/<name>/server/
+├── api/                 routes
+├── <name>.service.ts
+└── <name>.repository.ts
 ```
+
+Root `server/` holds only shared infrastructure: db client, migrations, `server/utils`.
 
 Rules:
 
@@ -517,10 +487,7 @@ Authentication:
 
 Authentication should be isolated from application logic.
 
-Possible solutions:
-
-- Better Auth
-- Nuxt Auth Utils
+Implementation: Better Auth in `layers/auth/` ([docs](layers/auth.md)).
 
 Rules:
 

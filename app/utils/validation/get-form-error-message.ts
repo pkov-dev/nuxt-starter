@@ -1,5 +1,6 @@
 import { FetchError } from 'ofetch'
 
+import { getSubmitErrorData } from './form-submit-error'
 import { isIssueList } from './format-server-issues'
 import { messages } from './messages'
 import { translate } from './translate'
@@ -8,13 +9,10 @@ import { translate } from './translate'
 export function getFormErrorMessage(error: unknown): string {
   const unknown = messages.errors.unknown
 
-  if (!(error instanceof FetchError))
-    return unknown
-
-  if (!error.response)
+  if (error instanceof FetchError && !error.response)
     return messages.errors.network
 
-  const data = error.data?.data
+  const data = getSubmitErrorData(error)
 
   if (isIssueList(data))
     return messages.errors.validation_failed

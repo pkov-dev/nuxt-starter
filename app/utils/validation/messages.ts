@@ -37,6 +37,7 @@ export const messages = {
     },
     custom: {
       email_taken: 'Email already registered',
+      password_mismatch: 'Passwords do not match',
     },
   },
 
@@ -55,6 +56,8 @@ export const messages = {
     network: 'No connection',
     unknown: 'Something went wrong',
     invalid_credentials: 'Invalid email or password',
+    email_not_verified: 'Confirm your email first',
+    too_many_requests: 'Too many attempts, try later',
   },
 } satisfies {
   defaults: DefaultMessages
