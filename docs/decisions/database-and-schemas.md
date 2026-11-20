@@ -2,14 +2,19 @@
 
 ## Where things live
 
-| Path                | What                                      | Runs on |
-| ------------------- | ----------------------------------------- | ------- |
-| `shared/db/schema/` | tables (`pgTable`), no connection         | both    |
-| `shared/schemas/`   | Zod schemas: drizzle-zod + business rules | both    |
-| `server/db/`        | connection, migrations                    | server  |
-| `app/`              | error texts                               | client  |
+| Path                               | What                                      | Runs on |
+| ---------------------------------- | ----------------------------------------- | ------- |
+| `layers/<name>/shared/*.table.ts`  | tables (`pgTable`), no connection         | both    |
+| `layers/<name>/shared/*.schema.ts` | Zod schemas: drizzle-zod + business rules | both    |
+| `server/db/`                       | connection, migrations                    | server  |
+| `app/utils/validation/`            | error texts                               | client  |
 
-Inside `shared/db/schema/` use relative imports: drizzle-kit does not resolve Nuxt aliases.
+A table and its schemas sit next to each other in the layer that owns them. See [layers.md](layers.md).
+
+Inside `*.table.ts` use relative imports only: drizzle-kit does not resolve Nuxt aliases.
+
+The db client has no `schema`, so the core does not import layers. Use `db.select().from(table)`.
+The relational API (`db.query.*`) needs the schema: add it when a layer really needs it.
 
 ## Columns
 
@@ -23,23 +28,25 @@ Inside `shared/db/schema/` use relative imports: drizzle-kit does not resolve Nu
 
 ## Structure from the database, rules in schemas
 
-- **Structure** comes from the table: `createInsertSchema(users)`.
-- **Validation rules** are added once in `shared/schemas/`.
-- **Texts** live only in `app/`. `shared/schemas/` has no texts.
+- **Structure** comes from the table: `createInsertSchema(user)`.
+- **Validation rules** are added once in `*.schema.ts`.
+- **Texts** live only in `app/`. Schemas have no texts.
 
 ```ts
-export const UserInsertSchema = createInsertSchema(users, {
+const UserInsertSchema = createInsertSchema(user, {
+  name: s => s.trim().min(1),
   email: s => s.trim().pipe(z.email()),
-  name: s => s.trim().min(2),
 })
 
-export const ProfileFormSchema = UserInsertSchema.pick({ email: true, name: true })
+export const SignInSchema = UserInsertSchema
+  .pick({ email: true })
+  .extend({ password })
 ```
 
-Forms are built with `.pick()`, `.omit()`, `.extend()`. Schemas without a table (login, password reset)
-live in `shared/schemas/` too.
+Forms are built with `.pick()`, `.omit()`, `.extend()`. A table is not a form: `account` stores a password hash,
+the sign-up form has `password` and `confirmPassword`.
 
-A table is not a form: the table stores `passwordHash`, the form has `password` and `confirmPassword`.
+Limits shared by the server and the schema are constants in `*.schema.ts`, e.g. `PASSWORD_LENGTH`.
 
 ## Required strings: `.trim().min(1)`
 
@@ -60,6 +67,6 @@ On upgrade: change imports and remove the `drizzle-zod` package.
 
 | Command            | What                               |
 | ------------------ | ---------------------------------- |
-| `pnpm db:generate` | create a migration from the schema |
+| `pnpm db:generate` | create a migration from the tables |
 | `pnpm db:migrate`  | apply migrations                   |
 | `pnpm db:studio`   | open Drizzle Studio                |

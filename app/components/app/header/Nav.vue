@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { navigation } from '~/data/navigation'
-
+const { navigation } = useAppConfig()
 const { lock, unlock } = useScrollLock()
 const uiStore = useUIStore()
 const route = useRoute()

@@ -58,6 +58,9 @@ export default antfu({
       patterns: [{
         group: ['~/*', '~~/app/*', '#build/*', '~~/server/*', '**/server/**', '~~/config/*', '**/config/*'],
         message: 'shared/ must not import from app/, server/ or config/.',
+      }, {
+        regex: '^(#layers|~~/layers|.*/layers)/',
+        message: 'Core must not import from layers/. Layers depend on the core, not the other way.',
       }],
     }],
   },
@@ -68,6 +71,19 @@ export default antfu({
       patterns: [{
         group: ['~~/server/*', '**/server/**', '~~/config/*', '**/config/*'],
         message: 'app/ must not import from server/ or config/. Share code through #shared/*.',
+      }, {
+        regex: '^(#layers|~~/layers|.*/layers)/',
+        message: 'Core must not import from layers/. Layers depend on the core, not the other way.',
+      }],
+    }],
+  },
+}, {
+  files: ['server/**'],
+  rules: {
+    'no-restricted-imports': ['error', {
+      patterns: [{
+        regex: '^(#layers|~~/layers|.*/layers)/',
+        message: 'Core must not import from layers/. Layers depend on the core, not the other way.',
       }],
     }],
   },

@@ -20,6 +20,27 @@ Codes are declared in `shared/types/api-errors.ts`, helpers live in `server/util
 TypeScript requires a text for every code.
 Name codes after what happened: `email_taken`, not `show_email_error`.
 
+## Errors not from `$fetch`
+
+A client library (e.g. Better Auth) returns its own errors. Map them to app codes and throw `FormSubmitError`:
+
+```ts
+throw new FormSubmitError({ code: 'invalid_credentials' })
+throw new FormSubmitError([{ code: 'custom', path: ['email'], params: { key: 'email_taken' } }])
+```
+
+`UiForm` treats it like a server response: form codes go to the alert, field issues go under fields.
+Example: `layers/auth/app/utils/auth-form-error.ts`.
+
+A client-only rule in a schema uses the same codes:
+
+```ts
+const SignUpSchema = BaseSchema.refine(data => data.password === data.confirmPassword, {
+  path: ['confirmPassword'],
+  params: { key: 'password_mismatch' satisfies FieldErrorCode },
+})
+```
+
 ## Text lookup
 
 `fields[fieldName][key]` → `defaults[key]` → `defaults.invalid`

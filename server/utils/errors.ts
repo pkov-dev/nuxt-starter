@@ -1,9 +1,3 @@
-interface FieldIssue {
-  code: 'custom'
-  path: PropertyKey[]
-  params: { key: FieldErrorCode }
-}
-
 type FieldOf<TBody> = [TBody] extends [never] ? never : keyof TBody & string
 
 /**
