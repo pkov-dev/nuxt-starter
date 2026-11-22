@@ -27,3 +27,14 @@ Project docs: [docs/README.md](docs/README.md). Read `docs/project-guide.md` and
 ## Checks
 
 - `pnpm check` (lint, stylelint, typecheck) must pass before a commit.
+
+## Git workflow (GitHub Flow)
+
+- `main` is always working and deployable. No direct commits to `main`.
+- Every feature or fix gets its own short-lived branch from an up-to-date `main`.
+- Branch names: `<type>/<short-name>`, where type is `feat`, `fix`, `refactor`, `docs` or `chore`. Example: `feat/user-profile`.
+- One branch — one task. Unrelated changes go to a separate branch.
+- Commit messages and pull request titles: gitmoji + short description, as in the existing history.
+- Push the branch and open a pull request into `main`. CI must pass before merging.
+- Merge with squash: one commit per pull request.
+- After merging, delete the branch and pull `main`.
