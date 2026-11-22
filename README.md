@@ -87,7 +87,11 @@ pnpm build        # production build
 pnpm preview      # preview production build
 pnpm typecheck    # TypeScript check
 pnpm lint         # ESLint
-pnpm check        # lint + typecheck
+pnpm stylelint    # Stylelint
+pnpm check        # lint + stylelint + typecheck
+pnpm db:generate  # generate migrations
+pnpm db:migrate   # apply migrations
+pnpm db:studio    # Drizzle Studio
 ```
 
 ---
