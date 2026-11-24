@@ -38,3 +38,12 @@ Project docs: [docs/README.md](docs/README.md). Read `docs/project-guide.md` and
 - Push the branch and open a pull request into `main`. CI must pass before merging.
 - Merge with squash: one commit per pull request.
 - After merging, delete the branch and pull `main`.
+- GitHub work (pull requests, checks, issues) through the `gh` CLI; git over SSH.
+- Push and opening a pull request only after the user explicitly confirms that step. Agreeing to a plan is not a confirmation.
+- The user merges pull requests. Never run `gh pr merge`.
+
+## Rules in this file
+
+- Only short actionable instructions, no explanations.
+- Add a rule only when the user states a decision. A question is not a rule.
+- Project rules and knowledge live in this repo (`CLAUDE.md`, `docs/`), never in agent memory.
