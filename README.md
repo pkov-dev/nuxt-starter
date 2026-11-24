@@ -18,6 +18,17 @@ Architecture and decisions: [docs/](docs/README.md).
 
 ---
 
+## New project from this template
+
+```bash
+gh repo create <name> --template pkov-dev/nuxt-starter --private --clone
+cd <name>
+```
+
+Creates a GitHub repository from this template and clones it. Then follow [Installation](#installation).
+
+---
+
 ## Installation
 
 Requirements:

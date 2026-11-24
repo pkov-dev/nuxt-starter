@@ -23,6 +23,7 @@ Project docs: [docs/README.md](docs/README.md). Read `docs/project-guide.md` and
 
 - All documentation lives in `docs/`. No `README.md` inside layers or other subfolders.
 - A layer is documented in `docs/layers/<name>.md` and linked from `docs/README.md`.
+- Docs are for another developer: setup, architecture, conventions, accepted decisions and why. Impersonal, no task lists or thinking process.
 
 ## Checks
 
@@ -46,4 +47,4 @@ Project docs: [docs/README.md](docs/README.md). Read `docs/project-guide.md` and
 
 - Only short actionable instructions, no explanations.
 - Add a rule only when the user states a decision. A question is not a rule.
-- Project rules and knowledge live in this repo (`CLAUDE.md`, `docs/`), never in agent memory.
+- Project rules and decisions live in this repo (`CLAUDE.md`, `docs/`), not in agent memory.

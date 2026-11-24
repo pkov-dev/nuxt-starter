@@ -471,7 +471,6 @@ Avoid putting business logic directly inside components.
 ## Future
 
 - MinIO for object storage
-- Redis only when required
 
 ---
 
