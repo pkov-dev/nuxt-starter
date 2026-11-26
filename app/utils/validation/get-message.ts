@@ -4,7 +4,12 @@ import type { MessageParams } from './translate'
 import { messages } from './messages'
 import { translate } from './translate'
 
-/** Text for a Zod issue. Expects `input` on the issue to detect empty values. */
+/**
+ * Text for a Zod issue: `fields[name][key]` → `defaults[key]` → `defaults.invalid`.
+ * @param issue - Zod issue with `input`, used to detect empty values
+ * @returns user-facing text
+ * @example schema.safeParse(value, { error: getMessage })
+ */
 export function getMessage(issue: z.core.$ZodRawIssue): string {
   const fieldName = getFieldName(issue.path ?? [])
   const key = getMessageKey(issue)
@@ -30,6 +35,7 @@ function isEmpty(value: unknown): boolean {
     || (typeof value === 'string' && value.trim() === '')
 }
 
+/** Message key: `required` for empty input first, then `custom.<key>`, `too_small.<origin>`, or the issue code. */
 function getMessageKey(issue: z.core.$ZodRawIssue): string | undefined {
   if (isEmpty(issue.input))
     return 'required'
@@ -53,6 +59,7 @@ function getParams(issue: z.core.$ZodRawIssue): MessageParams {
   return {}
 }
 
+/** Last non-index path segment: `['items', 0, 'email']` → `email`. */
 function getFieldName(path: PropertyKey[]): string | undefined {
   return path
     .map(String)

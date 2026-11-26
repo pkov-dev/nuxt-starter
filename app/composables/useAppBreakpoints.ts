@@ -8,6 +8,11 @@ const breakpoints = {
   xl: 1920,
 } as const
 
+/**
+ * Project breakpoints (`xs` 480 … `xl` 1920) for VueUse `useBreakpoints`.
+ * @returns VueUse breakpoints helpers
+ * @example const isMobile = useAppBreakpoints().smaller('md')
+ */
 export function useAppBreakpoints() {
   return useBreakpoints(breakpoints)
 }

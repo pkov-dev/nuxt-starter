@@ -4,9 +4,10 @@ interface ScrollLockOptions {
 }
 
 /**
- * Locks scrolling on a target element.
- *
- * Defaults to document.body.
+ * Locks scrolling on an element, client only.
+ * @param options - `target` (default `document.body`), `disableTouch` (default `true`)
+ * @returns `locked` state, `lock()` and `unlock()`
+ * @example const { lock, unlock } = useScrollLock()
  */
 export function useScrollLock(
   options: ScrollLockOptions = {},

@@ -34,7 +34,7 @@ layers/catalog/
     └── product.repository.ts      queries
 ```
 
-Nuxt rules work inside a layer: auto-imports, component names by path, `pages/`, `server/api/`.
+Nuxt rules work inside a layer: auto-imports, component names by path, `layers/<name>/app/pages/`, `layers/<name>/server/api/`.
 Everything auto-imported is global, so put components into `components/<name>/` to avoid name clashes.
 
 Add a service and a repository only when a route stops fitting on one screen. They are not in `server/utils`,

@@ -1,50 +1,11 @@
-# Rules for working on this project
+@CONTRIBUTING.md
 
-Project docs: [docs/README.md](docs/README.md). Read `docs/project-guide.md` and the relevant `docs/decisions/*.md` before changing architecture.
+# Agent rules
 
-## Code style
-
-- No comments in code. At most a one-line JSDoc on a function when the types do not make it obvious.
-- Explanations of decisions go to `docs/decisions/*.md`, not into code.
-- User-facing messages (validation, errors) are as short as possible without losing meaning.
-- No untyped hardcoded strings: field names, codes and keys passed between layers are typed, so TypeScript catches mistakes. A literal is fine only where a type checks it.
-
-## Where code lives
-
-- A function lives in the file that uses it.
-- If several files need it, move it to the nearest common parent:
-  - `app/utils` — client only;
-  - `server/utils` — server only;
-  - `shared/` — both client and server.
-- Do not put client-only helpers in `shared/`.
-- Inside a layer the same rule applies within `layers/<name>/`.
-
-## Documentation
-
-- All documentation lives in `docs/`. No `README.md` inside layers or other subfolders.
-- A layer is documented in `docs/layers/<name>.md` and linked from `docs/README.md`.
-- Docs are for another developer: setup, architecture, conventions, accepted decisions and why. Impersonal, no task lists or thinking process.
-
-## Checks
-
-- `pnpm check` (lint, stylelint, typecheck) must pass before a commit.
-
-## Git workflow (GitHub Flow)
-
-- `main` is always working and deployable. No direct commits to `main`.
-- Every feature or fix gets its own short-lived branch from an up-to-date `main`.
-- Branch names: `<type>/<short-name>`, where type is `feat`, `fix`, `refactor`, `docs` or `chore`. Example: `feat/user-profile`.
-- One branch — one task. Unrelated changes go to a separate branch.
-- Commit messages and pull request titles: gitmoji + short description, as in the existing history.
-- Push the branch and open a pull request into `main`. CI must pass before merging.
-- Merge with squash: one commit per pull request.
-- After merging, delete the branch and pull `main`.
-- GitHub work (pull requests, checks, issues) through the `gh` CLI; git over SSH.
+- Before a task, read `docs/README.md` and the docs whose "read when" matches the task.
+- Never edit `docs/` on your own. When a task needs a docs change, ask via AskUserQuestion: which doc and what changes, in one or two lines. Edit only after approval.
 - Push and opening a pull request only after the user explicitly confirms that step. Agreeing to a plan is not a confirmation.
 - The user merges pull requests. Never run `gh pr merge`.
-
-## Rules in this file
-
-- Only short actionable instructions, no explanations.
-- Add a rule only when the user states a decision. A question is not a rule.
-- Project rules and decisions live in this repo (`CLAUDE.md`, `docs/`), not in agent memory.
+- Add a rule to `CONTRIBUTING.md` or this file only when the user states a decision. A question is not a rule.
+- Rules are short actionable instructions, no explanations.
+- Project rules and decisions live in this repo (`CONTRIBUTING.md`, `CLAUDE.md`, `docs/`), not in agent memory.
