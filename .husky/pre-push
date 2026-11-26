@@ -2,7 +2,9 @@
 . "$(dirname "$0")/common.sh"
 
 # Define reusable error message
-ERROR_MESSAGE="$(tput setaf 1)\nChecks failed. Please fix the errors and try again.\n$(tput sgr0)"
+RED="$(tput setaf 1 2>/dev/null || true)"
+RESET="$(tput sgr0 2>/dev/null || true)"
+ERROR_MESSAGE="${RED}\nChecks failed. Please fix the errors and try again.\n${RESET}"
 
 # Run checks
 run_check() {
