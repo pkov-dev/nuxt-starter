@@ -3,11 +3,10 @@ import type { z } from 'zod'
 import { getMessage } from './get-message'
 
 /**
- * Replaces Zod error texts with texts from `messages`, without changing Zod globally.
- * Returns a Standard Schema accepted by vee-validate.
- *
- * @example
- * useForm({ validationSchema: localizeSchema(LoginSchema) })
+ * Wraps a Zod schema so its errors use texts from `messages`, without changing Zod globally.
+ * @param schema - Zod schema of the form
+ * @returns Standard Schema accepted by vee-validate
+ * @example useForm({ validationSchema: localizeSchema(SignInSchema) })
  */
 export function localizeSchema<T extends z.ZodType>(
   schema: T,

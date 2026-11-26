@@ -62,8 +62,3 @@ const SignUpSchema = BaseSchema.refine(data => data.password === data.confirmPas
 
 `translate.ts` is the single swap point: replace the lookup with `te(key) ? t(key, params) : undefined`
 and move `messages` to a locale file.
-
-## Code placement
-
-A function lives in the file that uses it. Used by several files → nearest common parent:
-`app/utils` (client), `server/utils` (server), `shared/` (both).
