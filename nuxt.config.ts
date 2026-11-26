@@ -93,7 +93,9 @@ export default defineNuxtConfig({
         },
       },
     },
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+    ],
   },
   postcss: {
     plugins: {

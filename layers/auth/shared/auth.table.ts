@@ -22,7 +22,9 @@ export const session = pgTable('session', {
   ipAddress: text(),
   userAgent: text(),
   ...timestamps,
-}, table => [index().on(table.userId)])
+}, table => [
+  index().on(table.userId),
+])
 
 export const account = pgTable('account', {
   id: uuid().primaryKey().defaultRandom(),
@@ -37,7 +39,9 @@ export const account = pgTable('account', {
   scope: text(),
   password: text(),
   ...timestamps,
-}, table => [index().on(table.userId)])
+}, table => [
+  index().on(table.userId),
+])
 
 export const verification = pgTable('verification', {
   id: uuid().primaryKey().defaultRandom(),
@@ -45,4 +49,6 @@ export const verification = pgTable('verification', {
   value: text().notNull(),
   expiresAt: timestamp({ withTimezone: true }).notNull(),
   ...timestamps,
-}, table => [index().on(table.identifier)])
+}, table => [
+  index().on(table.identifier),
+])

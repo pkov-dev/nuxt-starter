@@ -40,21 +40,33 @@ function getMessageKey(issue: z.core.$ZodRawIssue): string | undefined {
   if (isEmpty(issue.input))
     return 'required'
 
-  if (issue.code === 'custom')
-    return typeof issue.params?.key === 'string' ? `custom.${issue.params.key}` : undefined
+  if (issue.code === 'custom') {
+    return typeof issue.params?.key === 'string'
+      ? `custom.${issue.params.key}`
+      : undefined
+  }
 
-  if (issue.code === 'too_small' || issue.code === 'too_big')
-    return issue.origin ? `${issue.code}.${issue.origin}` : undefined
+  if (issue.code === 'too_small' || issue.code === 'too_big') {
+    return issue.origin
+      ? `${issue.code}.${issue.origin}`
+      : undefined
+  }
 
   return issue.code
 }
 
 function getParams(issue: z.core.$ZodRawIssue): MessageParams {
-  if (issue.code === 'too_small')
-    return { min: Number(issue.minimum) }
+  if (issue.code === 'too_small') {
+    return {
+      min: Number(issue.minimum),
+    }
+  }
 
-  if (issue.code === 'too_big')
-    return { max: Number(issue.maximum) }
+  if (issue.code === 'too_big') {
+    return {
+      max: Number(issue.maximum),
+    }
+  }
 
   return {}
 }

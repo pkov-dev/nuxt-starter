@@ -15,8 +15,12 @@ const {
 
 const describedBy = computed(() => {
   return [
-    props.description ? `${id}-description` : undefined,
-    errorMessage.value ? `${id}-error` : undefined,
+    props.description
+      ? `${id}-description`
+      : undefined,
+    errorMessage.value
+      ? `${id}-error`
+      : undefined,
   ]
     .filter(Boolean)
     .join(' ') || undefined
@@ -26,7 +30,9 @@ const field = computed(() => ({
   id,
   'modelValue': value.value,
   'onUpdate:modelValue': (newValue: InputValue) => {
-    handleChange(newValue === '' ? undefined : newValue, props.validateOnValueUpdate)
+    handleChange(newValue === ''
+      ? undefined
+      : newValue, props.validateOnValueUpdate)
   },
   'onBlur': (event: FocusEvent) => {
     handleBlur(event, props.validateOnBlur)

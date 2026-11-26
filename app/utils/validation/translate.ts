@@ -25,6 +25,8 @@ export function translate(path: string, params: MessageParams = {}): string | un
 function interpolate(template: string, params: MessageParams): string {
   return template.replace(
     /\{(\w+)\}/g,
-    (placeholder, name: string) => name in params ? String(params[name]) : placeholder,
+    (placeholder, name: string) => name in params
+      ? String(params[name])
+      : placeholder,
   )
 }
