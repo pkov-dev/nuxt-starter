@@ -58,15 +58,4 @@ Add `.trim().min(1)` (or a format such as `z.email()`) to every required string.
 A drizzle-zod schema pulls `drizzle-orm/pg-core` into the client: about +38 KB minified, +9 KB gzip
 compared with the same schema written in plain Zod (measured with esbuild).
 
-## drizzle-orm 1.0
-
-In 1.0 (now a release candidate) drizzle-zod moves into `drizzle-orm/zod`.
-On upgrade: change imports and remove the `drizzle-zod` package.
-
-## Commands
-
-| Command            | What                               |
-| ------------------ | ---------------------------------- |
-| `pnpm db:generate` | create a migration from the tables |
-| `pnpm db:migrate`  | apply migrations                   |
-| `pnpm db:studio`   | open Drizzle Studio                |
+Commands: [README](../../README.md#commands).

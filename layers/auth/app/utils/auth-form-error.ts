@@ -11,7 +11,12 @@ const FIELD_ERRORS: Partial<Record<string, FieldIssue>> = {
   USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL: { code: 'custom', path: ['email'], params: { key: 'email_taken' } },
 }
 
-/** Better Auth error codes → app error codes. Unknown codes fall back to `errors.unknown`. */
+/**
+ * Maps a Better Auth error to app error codes; unknown codes fall back to `errors.unknown`.
+ * @param error - error returned by a Better Auth action
+ * @returns `FormSubmitError` for known codes, otherwise the raw error
+ * @example if (signIn.error.value) throw authFormError(signIn.error.value)
+ */
 export function authFormError(error: AuthActionError): FormSubmitError | AuthActionError['raw'] {
   if (error.status === 429)
     return new FormSubmitError({ code: 'too_many_requests' })

@@ -2,7 +2,13 @@ import type { z } from 'zod'
 
 import { getMessage } from './get-message'
 
-/** Server issues → field texts. `input` is restored from form values (Zod strips it). */
+/**
+ * Server Zod issues → field texts; `input` is restored from form values because Zod strips it.
+ * @param issues - issues from a 422 response
+ * @param values - submitted form values
+ * @returns first text per field
+ * @example setErrors(formatServerIssues(data, values))
+ */
 export function formatServerIssues<TValues extends object>(
   issues: z.core.$ZodIssue[],
   values: TValues,
@@ -19,6 +25,12 @@ export function formatServerIssues<TValues extends object>(
   return errors as Partial<Record<keyof TValues, string>>
 }
 
+/**
+ * Checks that error data is a list of Zod issues.
+ * @param data - error `data` from a response
+ * @returns `true` for an array of issues with `code` and `path`
+ * @example if (isIssueList(data)) setErrors(formatServerIssues(data, values))
+ */
 export function isIssueList(data: unknown): data is z.core.$ZodIssue[] {
   return Array.isArray(data)
     && data.every(item =>

@@ -2,9 +2,8 @@ import { FetchError } from 'ofetch'
 
 /**
  * Submit error for `UiForm` from a source other than `$fetch`, e.g. an auth client.
- *
- * @example
- * throw new FormSubmitError({ code: 'invalid_credentials' })
+ * @param data - a form error code, or field issues
+ * @example throw new FormSubmitError({ code: 'invalid_credentials' })
  */
 export class FormSubmitError extends Error {
   constructor(readonly data: FormErrorData | FieldIssue[]) {
@@ -12,7 +11,12 @@ export class FormSubmitError extends Error {
   }
 }
 
-/** Error `data` from a `$fetch` response or a `FormSubmitError`. */
+/**
+ * Error payload of a form submit, whatever threw it.
+ * @param error - a `FetchError`, a `FormSubmitError` or anything else
+ * @returns response `data.data`, `FormSubmitError.data`, or `undefined`
+ * @example const data = getSubmitErrorData(error)
+ */
 export function getSubmitErrorData(error: unknown): unknown {
   if (error instanceof FormSubmitError)
     return error.data
