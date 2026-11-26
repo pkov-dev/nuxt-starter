@@ -33,14 +33,17 @@ export default antfu({
     'better-tailwindcss/no-unnecessary-whitespace': 'warn',
     'better-tailwindcss/no-conflicting-classes': 'error',
 
-    'vue/max-attributes-per-line': ['error', {
-      singleline: {
-        max: 2,
+    'vue/max-attributes-per-line': [
+      'error',
+      {
+        singleline: {
+          max: 2,
+        },
+        multiline: {
+          max: 1,
+        },
       },
-      multiline: {
-        max: 1,
-      },
-    }],
+    ],
 
     'ts/no-redeclare': 'off',
     'no-console': 'warn',
@@ -54,37 +57,67 @@ export default antfu({
 }, {
   files: ['shared/**'],
   rules: {
-    'no-restricted-imports': ['error', {
-      patterns: [{
-        group: ['~/*', '~~/app/*', '#build/*', '~~/server/*', '**/server/**', '~~/config/*', '**/config/*'],
-        message: 'shared/ must not import from app/, server/ or config/.',
-      }, {
-        regex: '^(#layers|~~/layers|.*/layers)/',
-        message: 'Core must not import from layers/. Layers depend on the core, not the other way.',
-      }],
-    }],
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: [
+              '~/*',
+              '~~/app/*',
+              '#build/*',
+              '~~/server/*',
+              '**/server/**',
+              '~~/config/*',
+              '**/config/*',
+            ],
+            message: 'shared/ must not import from app/, server/ or config/.',
+          },
+          {
+            regex: '^(#layers|~~/layers|.*/layers)/',
+            message: 'Core must not import from layers/. Layers depend on the core, not the other way.',
+          },
+        ],
+      },
+    ],
   },
 }, {
   files: ['app/**'],
   rules: {
-    'no-restricted-imports': ['error', {
-      patterns: [{
-        group: ['~~/server/*', '**/server/**', '~~/config/*', '**/config/*'],
-        message: 'app/ must not import from server/ or config/. Share code through #shared/*.',
-      }, {
-        regex: '^(#layers|~~/layers|.*/layers)/',
-        message: 'Core must not import from layers/. Layers depend on the core, not the other way.',
-      }],
-    }],
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: [
+              '~~/server/*',
+              '**/server/**',
+              '~~/config/*',
+              '**/config/*',
+            ],
+            message: 'app/ must not import from server/ or config/. Share code through #shared/*.',
+          },
+          {
+            regex: '^(#layers|~~/layers|.*/layers)/',
+            message: 'Core must not import from layers/. Layers depend on the core, not the other way.',
+          },
+        ],
+      },
+    ],
   },
 }, {
   files: ['server/**'],
   rules: {
-    'no-restricted-imports': ['error', {
-      patterns: [{
-        regex: '^(#layers|~~/layers|.*/layers)/',
-        message: 'Core must not import from layers/. Layers depend on the core, not the other way.',
-      }],
-    }],
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            regex: '^(#layers|~~/layers|.*/layers)/',
+            message: 'Core must not import from layers/. Layers depend on the core, not the other way.',
+          },
+        ],
+      },
+    ],
   },
 })

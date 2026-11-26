@@ -7,8 +7,16 @@ const FORM_ERRORS: Partial<Record<string, FormErrorCode>> = {
 }
 
 const FIELD_ERRORS: Partial<Record<string, FieldIssue>> = {
-  USER_ALREADY_EXISTS: { code: 'custom', path: ['email'], params: { key: 'email_taken' } },
-  USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL: { code: 'custom', path: ['email'], params: { key: 'email_taken' } },
+  USER_ALREADY_EXISTS: {
+    code: 'custom',
+    path: ['email'],
+    params: { key: 'email_taken' },
+  },
+  USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL: {
+    code: 'custom',
+    path: ['email'],
+    params: { key: 'email_taken' },
+  },
 }
 
 /**

@@ -17,7 +17,9 @@ function listMarkdown(dir: string): string[] {
     if (entry.isDirectory())
       return listMarkdown(path)
 
-    return entry.name.endsWith('.md') ? [path] : []
+    return entry.name.endsWith('.md')
+      ? [path]
+      : []
   })
 }
 
@@ -33,7 +35,9 @@ function slugify(text: string): string {
 function anchorsOf(file: string): Set<string> {
   const text = stripFences(readFileSync(file, 'utf8'))
 
-  return new Set([...text.matchAll(heading)].map(match => slugify(match[1] ?? '')))
+  return new Set([
+    ...text.matchAll(heading),
+  ].map(match => slugify(match[1] ?? '')))
 }
 
 function lineOf(text: string, index: number): number {
@@ -45,7 +49,9 @@ function checkLink(file: string, target: string): string | undefined {
     return
 
   const [path = '', anchor] = target.split('#')
-  const resolved = path ? resolve(dirname(file), path) : file
+  const resolved = path
+    ? resolve(dirname(file), path)
+    : file
 
   if (!existsSync(resolved))
     return `missing link target: ${target}`
@@ -66,7 +72,9 @@ function checkPath(value: string): string | undefined {
 /** Every doc except the index itself must be linked from the index. */
 function checkIndex(index: string, docs: string[]): string[] {
   const text = stripFences(readFileSync(index, 'utf8'))
-  const linked = new Set([...text.matchAll(link)].map(match => resolve(dirname(index), (match[1] ?? '').split('#')[0] ?? '')))
+  const linked = new Set([
+    ...text.matchAll(link),
+  ].map(match => resolve(dirname(index), (match[1] ?? '').split('#')[0] ?? '')))
 
   return docs
     .filter(doc => doc !== index && !linked.has(doc))
@@ -75,7 +83,10 @@ function checkIndex(index: string, docs: string[]): string[] {
 
 const docsIndex = join(root, 'docs', 'README.md')
 const docs = listMarkdown(join(root, 'docs'))
-const files = [...rootDocs.map(name => join(root, name)), ...docs]
+const files = [
+  ...rootDocs.map(name => join(root, name)),
+  ...docs,
+]
 const errors: string[] = checkIndex(docsIndex, docs)
 
 for (const file of files) {

@@ -26,7 +26,13 @@ A client library (e.g. Better Auth) returns its own errors. Map them to app code
 
 ```ts
 throw new FormSubmitError({ code: 'invalid_credentials' })
-throw new FormSubmitError([{ code: 'custom', path: ['email'], params: { key: 'email_taken' } }])
+throw new FormSubmitError([
+  {
+    code: 'custom',
+    path: ['email'],
+    params: { key: 'email_taken' }
+  }
+])
 ```
 
 `UiForm` treats it like a server response: form codes go to the alert, field issues go under fields.

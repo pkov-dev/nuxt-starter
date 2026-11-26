@@ -14,7 +14,13 @@ export function fieldError<TBody extends object = never>(
   return {
     statusCode: 422,
     message: code,
-    data: [{ code: 'custom', path: [field], params: { key: code } }],
+    data: [
+      {
+        code: 'custom',
+        path: [field],
+        params: { key: code },
+      },
+    ],
   }
 }
 

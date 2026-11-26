@@ -17,7 +17,10 @@ export const SignInSchema = UserInsertSchema
 
 export const SignUpSchema = UserInsertSchema
   .pick({ name: true, email: true })
-  .extend({ password, confirmPassword: z.string() })
+  .extend({
+    password,
+    confirmPassword: z.string(),
+  })
   .refine(data => data.password === data.confirmPassword, {
     path: ['confirmPassword'],
     params: { key: 'password_mismatch' satisfies FieldErrorCode },
